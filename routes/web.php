@@ -3,6 +3,7 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\StudentAuthController;
+use App\Http\Controllers\StudentController;
 
 /*
 |--------------------------------------------------------------------------
@@ -28,8 +29,14 @@ Route::get('/edit-student/{student}',[HomeController::class,'viewEditStudent'])-
 Route::put('/edit-student/',[HomeController::class,'storeEditStudent'])->name('edit.student.store');
 Route::get('/student-details/{student}',[HomeController::class,'viewStudent'])->name('view.student.details');
 
-Route::get('/add-student/ajax',[HomeController::class,'viewFormAjax'])->name('ajax.form')->middleware('auth.session');
+Route::get('/add-student/ajax',[HomeController::class,'viewFormAjax'])->name('ajax.form')->middleware('auth');
 Route::post('/add-student/ajax/',[HomeController::class,'storeStudentAjax'])->name('store.student.ajax');
 
+// authentication routes
 Route::get('/student-login',[StudentAuthController::class,'viewStudentLogin'])->name('login.student');
 Route::post('/student-login',[StudentAuthController::class,'login'])->name('login');
+Route::get('/student-logut',[StudentAuthController::class,'logout'])->name('logout');
+
+// for student panel
+Route::get('/student-index',[StudentController::class,'index'])->name('home.student')->middleware('auth');
+

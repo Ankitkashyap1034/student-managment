@@ -34,4 +34,31 @@
             </div>
         </div>
     </div>
+    @if(session('login-faild'))
+        <script>
+            Swal.fire({
+                icon: "error",
+                title: "Oops...",
+                text: "Password does not match!",
+            });
+        </script>
+    @endif
+    @if(session('logout-successfull'))
+        <script>
+             Swal.fire({
+                    title: "Good job!",
+                    text: "Student logout Succesfully",
+                    icon: "success"
+                });
+        </script>
+    @endif
+    @if(session('email-faild'))
+        <script>
+            Swal.fire({
+                icon: "error",
+                title: "Oops...",
+                text: "Email does not exist!",
+            });
+        </script>
+    @endif
 @endsection

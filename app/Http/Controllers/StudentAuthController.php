@@ -16,7 +16,11 @@ class StudentAuthController extends Controller
 {
     public function viewStudentLogin()
     {
-        return view('pages.authenticat-pages.student-login');
+        if(!Auth::user()){
+            return view('pages.authenticat-pages.student-login');
+        }else{
+            return redirect()->route('home.student');
+        }
     }
 
     // function for login student
@@ -29,16 +33,31 @@ class StudentAuthController extends Controller
 
         $credentials = $request->only('email', 'password');
 
-        if (Auth::attempt($credentials)) {
-            // Authentication passed, manually create a session
-            $request->session()->regenerate();
+        $user = Student::where('email',$request->email)->first();
+        if($user){
+            if (Auth::attempt($credentials)) {
+                // Authentication passed, manually create a session
+                $request->session()->regenerate();
 
-            // Optionally, you can store additional information in the session
-            // $request->session();
-            dd(Auth::user());
-            return redirect()->route('dashboard'); // Redirect to the dashboard or any other page
+                return redirect()->route('home.student');
+            }else{
+                return redirect()->back()->with('login-faild','Login credentials are not correct');
+            }
+        }else{
+            return redirect()->back()->with('email-faild','Login credentials are not correct');
         }
 
-        // Student::where('email',$request->email)->where('password',$request->password);
+    }
+
+    public function logout(Request $request)
+    {
+        // $request->validate([
+        //     'user_id' => 'required'
+        // ]);
+
+        Auth::logout();
+
+        return redirect()->route('login.student')->with('logout-successfull','Log out Successfull');
+
     }
 }
