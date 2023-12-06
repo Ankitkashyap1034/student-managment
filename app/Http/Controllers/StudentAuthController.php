@@ -49,12 +49,8 @@ class StudentAuthController extends Controller
 
     }
 
-    public function logout(Request $request)
+    public function logout()
     {
-        // $request->validate([
-        //     'user_id' => 'required'
-        // ]);
-
         Auth::logout();
 
         return redirect()->route('login.student')->with('logout-successfull','Log out Successfull');

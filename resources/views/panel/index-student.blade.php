@@ -33,7 +33,6 @@
                 <li class="nav-item menu-items">
                     {{-- <form action="{{route('logout')}}" method="post"> --}}
                         {{-- @csrf --}}
-                        <input type="hidden" name="user_id" />
                         <a class="nav-link" href="{{route('logout')}}">
                             <span class="menu-icon">
                             <i class="mdi mdi-logout text-danger"></i>

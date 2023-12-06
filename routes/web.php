@@ -4,6 +4,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\StudentAuthController;
 use App\Http\Controllers\StudentController;
+use App\Http\Controllers\StaffController;
 
 /*
 |--------------------------------------------------------------------------
@@ -40,3 +41,8 @@ Route::get('/student-logut',[StudentAuthController::class,'logout'])->name('logo
 // for student panel
 Route::get('/student-index',[StudentController::class,'index'])->name('home.student')->middleware('auth');
 
+// staff routes
+Route::get('/staff-index',[StaffController::class,'viewStaffIndex'])->name('home.staff');
+Route::get('/staff-login',[StaffController::class,'viewStaffLogin'])->name('login.staff');
+Route::post('/staff-login',[StaffController::class,'loginStaff'])->name('login.staff');
+Route::get('/staff-logout',[StaffController::class,'logoutStaff'])->name('logout.staff');
