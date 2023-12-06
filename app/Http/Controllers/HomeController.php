@@ -45,6 +45,7 @@ class HomeController extends Controller
             $studentModelInstance->profile_img = $filename;
         }
 
+        // also create a user also
         User::create([
             'name' => $request->name,
             'email' => $request->email,
@@ -61,7 +62,6 @@ class HomeController extends Controller
             'class' => $request->class,
             'email' => $request->email,
             'address' => $request->address,
-            'password' => Hash::make($request->password)
         ]);
 
         return redirect()->route('listing')->with('success','Student Add Succesfully');
