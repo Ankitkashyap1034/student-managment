@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\Student;
+use App\Models\User;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Validation\Validator;
@@ -43,6 +44,12 @@ class HomeController extends Controller
             $path = $file->storeAs('public/student-profile-img', $filename);
             $studentModelInstance->profile_img = $filename;
         }
+
+        User::create([
+            'name' => $request->name,
+            'email' => $request->email,
+            'password' => Hash::make($request->password)
+        ]);
 
         Student::create([
             'profile_img' => $filename,

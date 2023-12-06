@@ -9,7 +9,7 @@
     <!-- Bootstrap CSS-->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.1.3/css/bootstrap.min.css">
     <!-- Custom stylesheet - for your changes-->
-    {{-- <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script> --}}
+    <link rel="stylesheet" href="{{asset('css/login.css')}}">
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
 
