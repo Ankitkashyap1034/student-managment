@@ -27,6 +27,7 @@
                                                 <label for="mobile-no" class="mb-1">Mobile No:</label>
                                                 {{-- <input type="number" name="mobile_no" oninput="getStudentMobileNo(this)" class="form-control" id="mobile-no" placeholder="Enter Mobile no" required> --}}
                                                 <select class="form-control" id="student-mobile" name="mobile_no" onchange="getStudentMobileNo(this)" required>
+                                                    <option value="">Select Mobile no</option>
                                                     @foreach ($studentsData as $studentData)
                                                         <option value="{{$studentData->mobile_no}}">{{$studentData->mobile_no}}</option>
                                                     @endforeach
@@ -156,13 +157,11 @@
                     $('input[id="student-id"]').val(response.student.id);
                     // $('input[id="mobile-no"]').val(response.student.mobile_no);
                     $("#student-class").val(response.student.class).trigger('change');
-                    $("#student-mobile").val(response.student.mobile_no).trigger('change');
                     return;
                 }else{
                     $('input[id="name"]').val('');
                     $("#student-class").val('').trigger('change');
                     $('input[id="father-name"]').val('');
-                    $("#student-mobile").val('').trigger('change');
                     // $('input[id="mobile-no"]').val('');
                 }
             },
