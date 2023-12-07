@@ -22,5 +22,7 @@ class Student extends Model
         'class',
         'address',
         'password',
+        'user_id',
+        'created_by'
     ];
 }

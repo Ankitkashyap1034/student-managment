@@ -134,19 +134,19 @@
                       <div class="form-group">
                         <label for="class">Class:</label>
                         <select class="form-control" id="class" name="class" required>
-                        <option value="" disabled selected>Select Class</option>
-                        <option @if(Route::currentRouteName() === 'edit.student.view') {{ $studentDetail->class === '1' ? 'selected' : '' }} @endif value="1">1st </option>
-                        <option @if(Route::currentRouteName() === 'edit.student.view') {{ $studentDetail->class === '2' ? 'selected' : '' }} @endif value="2">2nd </option>
-                        <option @if(Route::currentRouteName() === 'edit.student.view') {{ $studentDetail->class === '3' ? 'selected' : '' }} @endif value="3">3rd </option>
-                        <option @if(Route::currentRouteName() === 'edit.student.view') {{ $studentDetail->class === '4' ? 'selected' : '' }} @endif value="4">4th </option>
-                        <option @if(Route::currentRouteName() === 'edit.student.view') {{ $studentDetail->class === '5' ? 'selected' : '' }} @endif value="5">5th </option>
-                        <option @if(Route::currentRouteName() === 'edit.student.view') {{ $studentDetail->class === '6' ? 'selected' : '' }} @endif value="6">6th </option>
-                        <option @if(Route::currentRouteName() === 'edit.student.view') {{ $studentDetail->class === '7' ? 'selected' : '' }} @endif  value="7">7th </option>
-                        <option @if(Route::currentRouteName() === 'edit.student.view') {{ $studentDetail->class === '8' ? 'selected' : '' }} @endif  value="8">8th </option>
-                        <option @if(Route::currentRouteName() === 'edit.student.view') {{ $studentDetail->class === '9' ? 'selected' : '' }} @endif  value="9">9th </option>
-                        <option @if(Route::currentRouteName() === 'edit.student.view') {{ $studentDetail->class === '10' ? 'selected' : '' }} @endif  value="10">10th </option>
-                        <option @if(Route::currentRouteName() === 'edit.student.view') {{ $studentDetail->class === '11' ? 'selected' : '' }} @endif  value="11">11th  (Intermediate 1st Year)</option>
-                        <option @if(Route::currentRouteName() === 'edit.student.view') {{ $studentDetail->class === '12' ? 'selected' : '' }} @endif  value="12">12th  (Intermediate 2nd Year)</option>
+                            <option value="" disabled selected>Select Class</option>
+                            <option @if(Route::currentRouteName() === 'edit.student.view') {{ $studentDetail->class === '1' ? 'selected' : '' }} @endif value="1">1st </option>
+                            <option @if(Route::currentRouteName() === 'edit.student.view') {{ $studentDetail->class === '2' ? 'selected' : '' }} @endif value="2">2nd </option>
+                            <option @if(Route::currentRouteName() === 'edit.student.view') {{ $studentDetail->class === '3' ? 'selected' : '' }} @endif value="3">3rd </option>
+                            <option @if(Route::currentRouteName() === 'edit.student.view') {{ $studentDetail->class === '4' ? 'selected' : '' }} @endif value="4">4th </option>
+                            <option @if(Route::currentRouteName() === 'edit.student.view') {{ $studentDetail->class === '5' ? 'selected' : '' }} @endif value="5">5th </option>
+                            <option @if(Route::currentRouteName() === 'edit.student.view') {{ $studentDetail->class === '6' ? 'selected' : '' }} @endif value="6">6th </option>
+                            <option @if(Route::currentRouteName() === 'edit.student.view') {{ $studentDetail->class === '7' ? 'selected' : '' }} @endif  value="7">7th </option>
+                            <option @if(Route::currentRouteName() === 'edit.student.view') {{ $studentDetail->class === '8' ? 'selected' : '' }} @endif  value="8">8th </option>
+                            <option @if(Route::currentRouteName() === 'edit.student.view') {{ $studentDetail->class === '9' ? 'selected' : '' }} @endif  value="9">9th </option>
+                            <option @if(Route::currentRouteName() === 'edit.student.view') {{ $studentDetail->class === '10' ? 'selected' : '' }} @endif  value="10">10th </option>
+                            <option @if(Route::currentRouteName() === 'edit.student.view') {{ $studentDetail->class === '11' ? 'selected' : '' }} @endif  value="11">11th  (Intermediate 1st Year)</option>
+                            <option @if(Route::currentRouteName() === 'edit.student.view') {{ $studentDetail->class === '12' ? 'selected' : '' }} @endif  value="12">12th  (Intermediate 2nd Year)</option>
                         </select>
                         @error('class')
                             <div class="text-danger">{{ $message }}</div>

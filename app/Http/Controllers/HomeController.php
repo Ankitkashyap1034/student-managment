@@ -1,6 +1,8 @@
 <?php
 
 namespace App\Http\Controllers;
+
+use App\Models\Staff;
 use Illuminate\Http\Request;
 use App\Models\Student;
 use App\Models\User;
@@ -9,6 +11,7 @@ use Illuminate\Support\Facades\Storage;
 use Illuminate\Validation\Validator;
 use Illuminate\Http\Exceptions\HttpResponseException;
 use Illuminate\Support\Facades\Hash;
+use Auth;
 
 class HomeController extends Controller
 {
@@ -24,15 +27,16 @@ class HomeController extends Controller
 
     public function store(Request $request)
     {
+
         $request->validate([
             'profile_img' => 'required',
             'name' => 'required|max:100',
             'father_name' => 'required|max:100',
             'mother_name' => 'required|max:100',
-            'mobile_no' => 'required|max:12',
+            'mobile_no' => 'required|max:10|min:10|unique:student,mobile_no',
             'gender' => 'required|max:20',
             'class' => 'required|max:30',
-            'email' => 'required|unique:student,email',
+            'email' => 'required|unique:student,email|unique:users,email',
             'address' => 'required|max:256',
             'password' => 'required|confirmed|min:6|max:10'
         ]);
@@ -46,23 +50,47 @@ class HomeController extends Controller
         }
 
         // also create a user also
-        User::create([
+        $user = User::create([
             'name' => $request->name,
             'email' => $request->email,
             'password' => Hash::make($request->password)
         ]);
 
-        Student::create([
-            'profile_img' => $filename,
-            'name' => $request->name,
-            'father_name' => $request->father_name,
-            'mother_name' => $request->mother_name,
-            'mobile_no' => $request->mobile_no,
-            'gender' => $request->gender,
-            'class' => $request->class,
-            'email' => $request->email,
-            'address' => $request->address,
-        ]);
+
+        if(Auth::user()){
+            if(Auth::user()->user_type == '1'){
+                $staffId = Staff::where('user_id',Auth::user()->id)->first();
+
+                Student::create([
+                    'profile_img' => $filename,
+                    'name' => $request->name,
+                    'father_name' => $request->father_name,
+                    'mother_name' => $request->mother_name,
+                    'mobile_no' => $request->mobile_no,
+                    'gender' => $request->gender,
+                    'class' => $request->class,
+                    'email' => $request->email,
+                    'address' => $request->address,
+                    'user_id' => $user->id,
+                    'created_by' => $staffId->id
+                ]);
+            }
+        }else{
+            Student::create([
+                'profile_img' => $filename,
+                'name' => $request->name,
+                'father_name' => $request->father_name,
+                'mother_name' => $request->mother_name,
+                'mobile_no' => $request->mobile_no,
+                'gender' => $request->gender,
+                'class' => $request->class,
+                'email' => $request->email,
+                'address' => $request->address,
+                'user_id' => $user->id,
+                'created_by' => 'self'
+            ]);
+        }
+
 
         return redirect()->route('listing')->with('success','Student Add Succesfully');
 
@@ -70,7 +98,12 @@ class HomeController extends Controller
 
     public function viewList()
     {
-        $students = Student::all();
+        if(Auth::user()->user_type == '1'){
+            $staffId = Staff::where('user_id',Auth::user()->id)->pluck('id');
+            $students = Student::where('created_by',$staffId)->get();
+        }else{
+            $students = Student::all();
+        }
         return view('pages.listing',[
             'students' => $students,
             'i' => 1

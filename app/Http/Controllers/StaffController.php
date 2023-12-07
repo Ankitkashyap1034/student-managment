@@ -14,7 +14,11 @@ class StaffController extends Controller
 
     public function viewStaffLogin()
     {
-        return view('staff-panel.login');
+        if(!Auth::user()){
+            return view('staff-panel.login');
+        }else{
+            return redirect()->route('home.staff');
+        }
     }
 
     public function loginStaff(Request $request)
@@ -45,5 +49,12 @@ class StaffController extends Controller
     {
         Auth::logout();
         return redirect()->route('login.staff')->with('logout-successfull','Log out Successfull');
+    }
+
+    public function feePayView()
+    {
+        if(Auth::user()->user_type == 1){
+            return view('staff-panel.fee-pay');
+        }
     }
 }

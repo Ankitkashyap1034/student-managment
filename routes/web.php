@@ -42,7 +42,8 @@ Route::get('/student-logut',[StudentAuthController::class,'logout'])->name('logo
 Route::get('/student-index',[StudentController::class,'index'])->name('home.student')->middleware('auth');
 
 // staff routes
-Route::get('/staff-index',[StaffController::class,'viewStaffIndex'])->name('home.staff');
+Route::get('/staff-index',[StaffController::class,'viewStaffIndex'])->name('home.staff')->middleware('auth');
 Route::get('/staff-login',[StaffController::class,'viewStaffLogin'])->name('login.staff');
 Route::post('/staff-login',[StaffController::class,'loginStaff'])->name('login.staff');
-Route::get('/staff-logout',[StaffController::class,'logoutStaff'])->name('logout.staff');
+Route::get('/staff-logout',[StaffController::class,'logoutStaff'])->name('logout.staff')->middleware('auth');
+Route::get('/fee-pay',[StaffController::class,'feePayView'])->name('pay.fee.view')->middleware('auth');
