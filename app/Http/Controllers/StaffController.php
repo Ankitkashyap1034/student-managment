@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 use App\Models\Staff;
 use App\Models\Student;
+use App\Models\PayFee;
 use Illuminate\Http\Request;
 use Auth;
 
@@ -55,14 +56,17 @@ class StaffController extends Controller
     public function feePayView()
     {
         if(Auth::user()->user_type == 1){
-            return view('staff-panel.fee-pay');
+            $studentData = Student::all();
+            return view('staff-panel.fee-pay',[
+                'studentsData' => $studentData
+            ]);
         }
     }
 
-    public function getStudentInfo($mobileNo)
+    public function getStudentInfo($studentMobile)
     {
         try{
-            $studentDeatials = Student::where('mobile_no', 'LIKE' , $mobileNo.'%')->first();
+            $studentDeatials = Student::where('mobile_no',$studentMobile)->first();
             if($studentDeatials){
                 return response()->json([
                     'status' => true,
@@ -86,5 +90,38 @@ class StaffController extends Controller
                 'message' => $ex->getMessage(),
             ], 404);
         }
+    }
+
+    public function storeFee(Request $request)
+    {
+        $request->validate([
+            'student_id' => 'required',
+            'fee_amount' => 'required',
+            'payment_mode' => 'required',
+            'remark' => 'required',
+            'mobile_no' => 'required',
+        ]);
+
+        if(Auth::user()->user_type == '1'){
+            $staff = Staff::where('user_id',Auth::user()->id)->first();
+
+                PayFee::create([
+                    'student_id' => $request->student_id,
+                    'fee_amount' => $request->fee_amount,
+                    'payment_mode' => $request->payment_mode,
+                    'remark' => $request->remark,
+                    'mobile_no' => $request->mobile_no,
+                    'staff_id' => $staff->id
+                ]);
+
+                return redirect()->back()->with('success','Fee Pay Successfully');
+        }else{
+            return redirect()->back()->with('success','Fee Pay Successfully');
+        }
+    }
+
+    public function viewListFee()
+    {
+
     }
 }

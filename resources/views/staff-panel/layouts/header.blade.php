@@ -26,6 +26,7 @@
     <link rel="stylesheet" href="staff-panel/assets/vendor/css/core.css" class="template-customizer-core-css" />
     <link rel="stylesheet" href="staff-panel/assets/vendor/css/theme-default.css" class="template-customizer-theme-css" />
     <link rel="stylesheet" href="staff-panel/assets/css/demo.css" />
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
 
     <!-- Vendors CSS -->
     <link rel="stylesheet" href="staff-panel/assets/vendor/libs/perfect-scrollbar/perfect-scrollbar.css" />

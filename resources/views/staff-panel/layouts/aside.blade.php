@@ -99,6 +99,14 @@
           <i class="menu-icon tf-icons bx bx-dollar-circle"></i>
           <div data-i18n="Basic">Add Fee</div>
         </a>
+      </li>
+
+      <li class="menu-item">
+        <a href="{{route('listing.fee')}}" class="menu-link">
+          <i class="menu-icon tf-icons bx bx-dollar-circle"></i>
+          <div data-i18n="Basic">Fee Listing</div>
+        </a>
+      </li>
       {{-- fee pay --}}
 
       {{-- authentication --}}

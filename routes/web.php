@@ -47,4 +47,6 @@ Route::get('/staff-login',[StaffController::class,'viewStaffLogin'])->name('logi
 Route::post('/staff-login',[StaffController::class,'loginStaff'])->name('login.staff');
 Route::get('/staff-logout',[StaffController::class,'logoutStaff'])->name('logout.staff')->middleware('auth');
 Route::get('/fee-pay',[StaffController::class,'feePayView'])->name('pay.fee.view')->middleware('auth');
-Route::get('/student-info/{mobileNo}',[StaffController::class,'getStudentInfo'])->name('get.student.info')->middleware('auth');
+Route::get('/student-info/{studentMobile}',[StaffController::class,'getStudentInfo'])->name('get.student.info')->middleware('auth');
+Route::post('/fee-pay/store',[StaffController::class,'storeFee'])->name('pay.fee.store');
+Route::get('/fee-pay/listing',[StaffController::class,'viewListFee'])->name('listing.fee')->middleware('auth');
