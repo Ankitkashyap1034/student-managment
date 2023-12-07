@@ -22,10 +22,11 @@
                                     <div class="col-md-6 mb-2">
                                         <div class="form-group">
                                             <label for="mobile-no" class="mb-1">Mobile No:</label>
-                                            <input type="number" name="mobile_no" class="form-control" id="mobile-no" placeholder="Enter Mobile no" required>
+                                            <input type="number" name="mobile_no" oninput="getStudentMobileNo(this)" class="form-control" id="mobile-no" placeholder="Enter Mobile no" required>
                                             @error('mobile_no')
                                                 <div class="text-danger">{{ $message }}</div>
                                             @enderror
+                                            <span class="text-danger" id="get-student-details"></span>
                                           </div>
                                     </div>
                                     <div class="col-md-6 mb-2">
@@ -122,4 +123,32 @@
   </div>
   <!-- / Layout wrapper -->
 
+  <script>
+    function getStudentMobileNo(mobileNo)
+    {
+        var mobile_no = mobileNo.value;
+
+        $.ajax({
+            type: 'GET',
+            url: '/student-info/' + mobile_no,
+            success: function(response) {
+                if(response.status == true){
+                    $('input[id="name"]').val(response.student.name);
+                    $('input[id="father-name"]').val(response.student.father_name);
+                    $("#student-class").val(response.student.class).trigger('change');
+                    $("#get-student-details").text('');
+                }else{
+                    $('input[id="name"]').val('');
+                    $("#student-class").val('').trigger('change');
+                    $("#get-student-details").text('No student found with this mobile no');
+                }
+            },
+            error: function(xhr, status, error) {
+                // alert('Fail');
+                // console.log(xhr.status); // Log the HTTP status code
+                // console.log(error);     // Log the error message
+            }
+        });
+    }
+  </script>
 @endsection

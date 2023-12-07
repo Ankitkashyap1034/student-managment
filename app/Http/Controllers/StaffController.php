@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 use App\Models\Staff;
+use App\Models\Student;
 use Illuminate\Http\Request;
 use Auth;
 
@@ -55,6 +56,35 @@ class StaffController extends Controller
     {
         if(Auth::user()->user_type == 1){
             return view('staff-panel.fee-pay');
+        }
+    }
+
+    public function getStudentInfo($mobileNo)
+    {
+        try{
+            $studentDeatials = Student::where('mobile_no', 'LIKE' , $mobileNo.'%')->first();
+            if($studentDeatials){
+                return response()->json([
+                    'status' => true,
+                    'student' => $studentDeatials
+                ],200);
+            }else{
+                return response()->json([
+                    'status' => false,
+                    'message' => 'No student found with this mobile no'
+                ],200);
+            }
+
+        }
+        catch (\Exception $ex) {
+            Log::error('getClientService', [
+                'message' => $ex->getMessage(),
+                'trace' => $ex->getTraceAsString(),
+            ]);
+
+            return response()->json([
+                'message' => $ex->getMessage(),
+            ], 404);
         }
     }
 }
