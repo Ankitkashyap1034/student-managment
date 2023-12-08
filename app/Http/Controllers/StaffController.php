@@ -63,6 +63,11 @@ class StaffController extends Controller
         }
     }
 
+    public function viewAddStudentForm()
+    {
+        return view('staff-panel.add-student-form');
+    }
+
     public function getStudentInfo($studentMobile)
     {
         try{
@@ -122,6 +127,30 @@ class StaffController extends Controller
 
     public function viewListFee()
     {
+        $data = PayFee::all();
+        return view('staff-panel.fee-listing',[
+            'data' => $data,
+            'i' => 1
+        ]);
+    }
 
+    public function viewListStudentFiltered($class)
+    {
+        $students = Student::where('class',$class)->get();
+        return view('pages.listing',[
+            'students' => $students,
+            'i' => 1
+        ]);
+    }
+
+    public function viewListStudent()
+    {
+        $staffId = Staff::where('user_id',Auth::user()->id)->pluck('id');
+        $students = Student::where('created_by',$staffId)->get();
+
+        return view('staff-panel.student-listing-staff',[
+            'students' => $students,
+            'i' => 1
+        ]);
     }
 }

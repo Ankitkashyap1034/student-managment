@@ -27,7 +27,7 @@ class HomeController extends Controller
 
     public function store(Request $request)
     {
-
+        dd($request->all());
         $request->validate([
             'profile_img' => 'required',
             'name' => 'required|max:100',

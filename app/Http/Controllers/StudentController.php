@@ -18,6 +18,5 @@ class StudentController extends Controller
         }else{
             return redirect()->route('home.staff');
         }
-
     }
 }

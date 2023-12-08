@@ -42,11 +42,17 @@ Route::get('/student-logut',[StudentAuthController::class,'logout'])->name('logo
 Route::get('/student-index',[StudentController::class,'index'])->name('home.student')->middleware('auth');
 
 // staff routes
-Route::get('/staff-index',[StaffController::class,'viewStaffIndex'])->name('home.staff')->middleware('auth');
-Route::get('/staff-login',[StaffController::class,'viewStaffLogin'])->name('login.staff');
-Route::post('/staff-login',[StaffController::class,'loginStaff'])->name('login.staff');
-Route::get('/staff-logout',[StaffController::class,'logoutStaff'])->name('logout.staff')->middleware('auth');
-Route::get('/fee-pay',[StaffController::class,'feePayView'])->name('pay.fee.view')->middleware('auth');
-Route::get('/student-info/{studentMobile}',[StaffController::class,'getStudentInfo'])->name('get.student.info')->middleware('auth');
-Route::post('/fee-pay/store',[StaffController::class,'storeFee'])->name('pay.fee.store');
-Route::get('/fee-pay/listing',[StaffController::class,'viewListFee'])->name('listing.fee')->middleware('auth');
+
+Route::middleware('auth')->prefix('staff')->group(function () {
+    Route::get('/index',[StaffController::class,'viewStaffIndex'])->name('home.staff');
+    Route::get('/add-student',[StaffController::class,'viewAddStudentForm'])->name('add.student.staff');
+    Route::get('/logout',[StaffController::class,'logoutStaff'])->name('logout.staff');
+    Route::get('/listing',[StaffController::class,'viewListStudent'])->name('listing.student.staff');
+    Route::get('/fee-pay',[StaffController::class,'feePayView'])->name('pay.fee.view');
+    Route::get('/student-info/{studentMobile}',[StaffController::class,'getStudentInfo'])->name('get.student.info');
+    Route::post('/fee-pay/store',[StaffController::class,'storeFee'])->name('pay.fee.store');
+    Route::get('/fee-pay/listing',[StaffController::class,'viewListFee'])->name('listing.fee');
+    Route::get('/student-listing/fiterd/{class}',[StaffController::class,'viewListStudentFiltered'])->name('listing.student.filter');
+});
+Route::get('/staff/login',[StaffController::class,'viewStaffLogin'])->name('login.staff');
+Route::post('/login',[StaffController::class,'loginStaff'])->name('login.staff');

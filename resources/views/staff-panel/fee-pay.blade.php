@@ -135,7 +135,7 @@
 
   @if(session('success'))
     <script>
-        wal.fire(
+        Swal.fire(
             'Sucess!',
             'Fee Pay Successfully!',
             'success'
@@ -172,5 +172,10 @@
             }
         });
     }
+
+    $(document).ready(function() {
+      // Initialize Select2 on the select box
+      $("#student-mobile").select2();
+    });
   </script>
 @endsection

@@ -2,10 +2,10 @@
 
 @section('content')
 <div class="container-xxl">
-    <div class="authentication-wrapper authentication-basic container-p-y">
+    <div class="authentication-wrapper authentication-basic justify-content-center pt-4">
       <div class="authentication-inner">
         <!-- Register -->
-        <div class="card">
+        <div class="card" style="width: 50%">
           <div class="card-body">
             <!-- Logo -->
             <div class="app-brand justify-content-center">

@@ -3,6 +3,6 @@
     @include('staff-panel.layouts.header')
     <body>
         @yield('content')
-        @include('staff-panel.layouts.header')
+        @include('staff-panel.layouts.footer')
     </body>
 </html>

@@ -19,4 +19,9 @@ class PayFee extends Model
         'remark',
         'staff_id'
     ];
+
+    public function student()
+    {
+        return $this->belongsTo(Student::class,'student_id','id');
+    }
 }

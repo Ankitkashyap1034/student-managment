@@ -23,24 +23,27 @@
     <link rel="stylesheet" href="{{asset('staff-panel/assets/vendor/fonts/boxicons.css')}}" />
 
     <!-- Core CSS -->
-    <link rel="stylesheet" href="staff-panel/assets/vendor/css/core.css" class="template-customizer-core-css" />
-    <link rel="stylesheet" href="staff-panel/assets/vendor/css/theme-default.css" class="template-customizer-theme-css" />
-    <link rel="stylesheet" href="staff-panel/assets/css/demo.css" />
+    <link rel="stylesheet" href="{{asset('staff-panel/assets/vendor/css/core.css')}}" class="template-customizer-core-css" />
+    <link rel="stylesheet" href="{{asset('staff-panel/assets/vendor/css/theme-default.css')}}" class="template-customizer-theme-css" />
+    <link rel="stylesheet" href="{{asset('staff-panel/assets/css/demo.css')}}" />
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
 
     <!-- Vendors CSS -->
-    <link rel="stylesheet" href="staff-panel/assets/vendor/libs/perfect-scrollbar/perfect-scrollbar.css" />
+    <link rel="stylesheet" href="{{asset('staff-panel/assets/vendor/libs/perfect-scrollbar/perfect-scrollbar.css')}}" />
 
-    <link rel="stylesheet" href="staff-panel/assets/vendor/libs/apex-charts/apex-charts.css" />
+    <link rel="stylesheet" href="{{asset('staff-panel/assets/vendor/libs/apex-charts/apex-charts.css')}}" />
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
 
     <!-- Page CSS -->
 
     <!-- Helpers -->
-    <script src="staff-panel/assets/vendor/js/helpers.js"></script>
+
+    <script src="{{asset('staff-panel/assets/vendor/js/helpers.js')}}"></script>
     <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+    <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
+    <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
 
     <!--! Template customizer & Theme config files MUST be included after core stylesheets and helpers.js in the <head> section -->
     <!--? Config:  Mandatory theme config file contain global vars & default theme options, Set your preferred theme option in this file.  -->
-    <script src="staff-panel/assets/js/config.js"></script>
+    <script src="{{asset('staff-panel/assets/js/config.js')}}"></script>
   </head>

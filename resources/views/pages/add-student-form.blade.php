@@ -15,7 +15,7 @@
             </ul>
         </div>
     @endif --}}
-    <section class="bg-light">
+    <section class="bg-light mb-2">
         <div class="container">
             <div class="pt-4">
                 <form method="POST" class="form" action="@if(Route::currentRouteName() === 'add.student')  {{route('store.student')}} @endif @if(Route::currentRouteName() === 'edit.student.view') {{route('edit.student.store')}} @endif" enctype="multipart/form-data">
@@ -65,11 +65,13 @@
 
                       <!-- Mobile Number -->
                       <div class="form-group">
-                        <label for="mobileNo">Mobile Number:</label>
-                        <input type="number" name="mobile_no" class="form-control" id="mobileNo" placeholder="Enter mobile number" @if(Route::currentRouteName() === 'edit.student.view') value="{{$studentDetail->mobile_no}}" @endif required>
+                        <label for="mobileNo">Mobile Number: </label>
+                        {{-- <i class="fa fa-info-circle" data-toggle="tooltip" data-placement="right" title="Mobile no is minimum 10 number" aria-hidden="true"></i> --}}
+                        <input type="number" oninput="checkMobileNo(this);" name="mobile_no" class="form-control" id="mobileNo" placeholder="Enter mobile number" @if(Route::currentRouteName() === 'edit.student.view') value="{{$studentDetail->mobile_no}}" @endif required>
                         @error('mobile_no')
                             <div class="text-danger">{{ $message }}</div>
                         @enderror
+                        <span id="mobile-no-error" class="text-danger"></span>
                       </div>
 
                       <!-- Email -->
@@ -185,5 +187,19 @@
                 document.getElementById('password-error').textContent = '';
             }
         }
+        function checkMobileNo(mobileNo)
+        {
+            // var regex = /^[0-9]{11}$/;
+
+            // Check if the mobile number is valid
+            if (mobileNo.value.length != 10) {
+                document.getElementById('mobile-no-error').textContent = 'Mobile no must the 10 digits';
+                mobileNo.classList.add('is-invalid');
+            }else{
+                document.getElementById('mobile-no-error').textContent = '';
+                mobileNo.classList.remove('is-invalid');
+            }
+        }
+
     </script>
 @endsection

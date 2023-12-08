@@ -25,4 +25,9 @@ class Student extends Model
         'user_id',
         'created_by'
     ];
+
+    public function studentFee()
+    {
+        return $this->hasOne(PayFee::class,'id');
+    }
 }

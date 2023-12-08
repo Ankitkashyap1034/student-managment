@@ -78,7 +78,7 @@
       <li class="menu-header small text-uppercase"><span class="menu-header-text">Student</span></li>
       <!-- Components -->
       <li class="menu-item">
-        <a href="{{route('add.student')}}" class="menu-link">
+        <a href="{{route('add.student.staff')}}" class="menu-link">
           <i class="menu-icon tf-icons bx bx-plus-circle"></i>
           <div data-i18n="Basic">Add Student</div>
         </a>
@@ -91,6 +91,80 @@
         </a>
       </li>
       <!-- User interface -->
+
+       {{-- student class wise --}}
+       {{-- <li class="menu-header small text-uppercase"><span class="menu-header-text">Class</span></li> --}}
+
+       <li class="menu-item" style="">
+        <a href="javascript:void(0);" class="menu-link menu-toggle">
+          <i class="menu-icon tf-icons bx bx-dock-top"></i>
+          <div data-i18n="Account Settings">Student by Class</div>
+        </a>
+        <ul class="menu-sub">
+          <li class="menu-item">
+            <a href="{{url('/student-listing/fiterd/'.'1')}}" class="menu-link">
+              <div data-i18n="Account">1st Class</div>
+            </a>
+          </li>
+          <li class="menu-item">
+            <a href="{{url('/student-listing/fiterd/'.'2')}}" class="menu-link">
+              <div data-i18n="Notifications">2nd Class</div>
+            </a>
+          </li>
+          <li class="menu-item">
+            <a href="{{url('/student-listing/fiterd/'.'3')}}" class="menu-link">
+              <div data-i18n="Connections">3rd Class</div>
+            </a>
+          </li>
+          <li class="menu-item">
+            <a href="{{url('/student-listing/fiterd/'.'4')}}" class="menu-link">
+              <div data-i18n="Connections">4thth Class</div>
+            </a>
+          </li>
+          <li class="menu-item">
+            <a href="{{url('/student-listing/fiterd/'.'5')}}" class="menu-link">
+              <div data-i18n="Connections">5th Class</div>
+            </a>
+          </li>
+          <li class="menu-item">
+            <a href="{{url('/student-listing/fiterd/'.'6')}}" class="menu-link">
+              <div data-i18n="Connections">6th Class</div>
+            </a>
+          </li>
+          <li class="menu-item">
+            <a href="{{url('/student-listing/fiterd/'.'7')}}" class="menu-link">
+              <div data-i18n="Connections">7th Class</div>
+            </a>
+          </li>
+          <li class="menu-item">
+            <a href="{{url('/student-listing/fiterd/'.'8')}}" class="menu-link">
+              <div data-i18n="Connections">8th Class</div>
+            </a>
+          </li>
+          <li class="menu-item">
+            <a href="{{url('/student-listing/fiterd/'.'9')}}" class="menu-link">
+              <div data-i18n="Connections">9th Class</div>
+            </a>
+          </li>
+          <li class="menu-item">
+            <a href="{{url('/student-listing/fiterd/'.'10')}}" class="menu-link">
+              <div data-i18n="Connections">10th Class</div>
+            </a>
+          </li>
+          <li class="menu-item">
+            <a href="{{url('/student-listing/fiterd/'.'11')}}" class="menu-link">
+              <div data-i18n="Connections">11th Class</div>
+            </a>
+          </li>
+          <li class="menu-item">
+            <a href="{{url('/student-listing/fiterd/'.'12')}}" class="menu-link">
+              <div data-i18n="Connections">12th Class</div>
+            </a>
+          </li>
+        </ul>
+      </li>
+       {{-- student class wise --}}
+
 
       {{-- fee pay --}}
       <li class="menu-header small text-uppercase"><span class="menu-header-text">Fee Pay</span></li>
