@@ -85,7 +85,7 @@
       </li>
 
       <li class="menu-item">
-        <a href="{{route('listing')}}" class="menu-link">
+        <a href="{{route('listing.student.staff')}}" class="menu-link">
           <i class="menu-icon tf-icons bx bx-user"></i>
           <div data-i18n="Basic">Student Listing</div>
         </a>

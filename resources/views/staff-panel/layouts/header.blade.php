@@ -4,7 +4,7 @@
       name="viewport"
       content="width=device-width, initial-scale=1.0, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0"/>
 
-    <title>Dashboard - Analytics | Sneat - Bootstrap 5 HTML Admin Template - Pro</title>
+    <title>Dashboard</title>
 
     <meta name="description" content="" />
 
@@ -26,7 +26,7 @@
     <link rel="stylesheet" href="{{asset('staff-panel/assets/vendor/css/core.css')}}" class="template-customizer-core-css" />
     <link rel="stylesheet" href="{{asset('staff-panel/assets/vendor/css/theme-default.css')}}" class="template-customizer-theme-css" />
     <link rel="stylesheet" href="{{asset('staff-panel/assets/css/demo.css')}}" />
-    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
+    {{-- <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script> --}}
 
     <!-- Vendors CSS -->
     <link rel="stylesheet" href="{{asset('staff-panel/assets/vendor/libs/perfect-scrollbar/perfect-scrollbar.css')}}" />
@@ -37,9 +37,9 @@
     <!-- Page CSS -->
 
     <!-- Helpers -->
-
     <script src="{{asset('staff-panel/assets/vendor/js/helpers.js')}}"></script>
     <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+
     <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
     <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
 

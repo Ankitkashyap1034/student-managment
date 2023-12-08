@@ -98,10 +98,15 @@ class HomeController extends Controller
 
     public function viewList()
     {
-        if(Auth::user()->user_type == '1'){
-            $staffId = Staff::where('user_id',Auth::user()->id)->pluck('id');
-            $students = Student::where('created_by',$staffId)->get();
-        }else{
+        if(Auth::user()){
+            if(Auth::user()->user_type == '1'){
+                $staffId = Staff::where('user_id',Auth::user()->id)->pluck('id');
+                $students = Student::where('created_by',$staffId)->get();
+            }else{
+                $students = Student::all();
+            }
+        }
+        else{
             $students = Student::all();
         }
         return view('pages.listing',[
@@ -113,7 +118,7 @@ class HomeController extends Controller
     public function destroy(Student $student)
     {
         try{
-            $student->delete();
+            // $student->delete();
             return response()->json([
                 'status' => true,
             ],200);

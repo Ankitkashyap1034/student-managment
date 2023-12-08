@@ -46,7 +46,6 @@ Route::get('/student-index',[StudentController::class,'index'])->name('home.stud
 Route::middleware('auth')->prefix('staff')->group(function () {
     Route::get('/index',[StaffController::class,'viewStaffIndex'])->name('home.staff');
     Route::get('/add-student',[StaffController::class,'viewAddStudentForm'])->name('add.student.staff');
-    Route::get('/logout',[StaffController::class,'logoutStaff'])->name('logout.staff');
     Route::get('/listing',[StaffController::class,'viewListStudent'])->name('listing.student.staff');
     Route::get('/fee-pay',[StaffController::class,'feePayView'])->name('pay.fee.view');
     Route::get('/student-info/{studentMobile}',[StaffController::class,'getStudentInfo'])->name('get.student.info');
@@ -54,5 +53,7 @@ Route::middleware('auth')->prefix('staff')->group(function () {
     Route::get('/fee-pay/listing',[StaffController::class,'viewListFee'])->name('listing.fee');
     Route::get('/student-listing/fiterd/{class}',[StaffController::class,'viewListStudentFiltered'])->name('listing.student.filter');
 });
-Route::get('/staff/login',[StaffController::class,'viewStaffLogin'])->name('login.staff');
+Route::get('
+/login',[StaffController::class,'viewStaffLogin'])->name('login.staff');
 Route::post('/login',[StaffController::class,'loginStaff'])->name('login.staff');
+Route::get('/logout',[StaffController::class,'logoutStaff'])->name('logout.staff');

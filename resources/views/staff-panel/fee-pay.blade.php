@@ -172,10 +172,5 @@
             }
         });
     }
-
-    $(document).ready(function() {
-      // Initialize Select2 on the select box
-      $("#student-mobile").select2();
-    });
   </script>
 @endsection
