@@ -173,4 +173,9 @@
         });
     }
   </script>
+  <script>
+    $(document).ready(function() {
+      $("#student-mobile").select2();
+    });
+  </script>
 @endsection

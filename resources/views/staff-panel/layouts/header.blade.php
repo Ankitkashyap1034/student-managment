@@ -31,7 +31,7 @@
     <!-- Vendors CSS -->
     <link rel="stylesheet" href="{{asset('staff-panel/assets/vendor/libs/perfect-scrollbar/perfect-scrollbar.css')}}" />
 
-    <link rel="stylesheet" href="{{asset('staff-panel/assets/vendor/libs/apex-charts/apex-charts.css')}}" />
+    {{-- <link rel="stylesheet" href="{{asset('staff-panel/assets/vendor/libs/apex-charts/apex-charts.css')}}" /> --}}
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
 
     <!-- Page CSS -->

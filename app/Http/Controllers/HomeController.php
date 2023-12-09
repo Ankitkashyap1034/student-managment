@@ -27,7 +27,7 @@ class HomeController extends Controller
 
     public function store(Request $request)
     {
-        dd($request->all());
+
         $request->validate([
             'profile_img' => 'required',
             'name' => 'required|max:100',
@@ -40,7 +40,7 @@ class HomeController extends Controller
             'address' => 'required|max:256',
             'password' => 'required|confirmed|min:6|max:10'
         ]);
-
+        dd($request->all());
         if ($request->file('profile_img')) {
             $studentModelInstance = new Student();
             $file = $request->file('profile_img');
@@ -197,7 +197,7 @@ class HomeController extends Controller
             'address' => $request->address,
         ]);
 
-        return redirect()->route('listing')->with('edit-successfully','Student Edit Succesfully');
+        return redirect('/staff/listing')->with('edit-successfully','Student Edit Succesfully');
     }
 
     public function viewFormAjax()
