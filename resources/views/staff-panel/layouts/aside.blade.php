@@ -186,19 +186,19 @@
       {{-- product --}}
       <li class="menu-header small text-uppercase"><span class="menu-header-text">Product</span></li>
       {{-- catagory--}}
-      <li class="menu-item  @if(Route::currentRouteName() == 'listing.student.filter') active @endif" style="">
+      <li class="menu-item  @if(Route::currentRouteName() == 'add.category.view' || Route::currentRouteName() == 'lsiting.category') active @endif" style="">
         <a href="javascript:void(0);" class="menu-link menu-toggle">
           <i class="menu-icon tf-icons bx bxs-category"></i>
           <div data-i18n="Account Settings">Category</div>
         </a>
         <ul class="menu-sub">
-          <li class="menu-item">
-            <a href="{{url('/staff/student-listing/fiterd/'.'1')}}" class="menu-link">
+          <li class="menu-item @if(Route::currentRouteName() == 'add.category.view') active @endif">
+            <a href="{{route('add.category.view')}}" class="menu-link">
               <div data-i18n="Account">Add Catogery</div>
             </a>
           </li>
-          <li class="menu-item  @if(Route::currentRouteName() == 'listing.fee') active @endif">
-            <a href="{{route('listing.fee')}}" class="menu-link">
+          <li class="menu-item  @if(Route::currentRouteName() == 'lsiting.category') active @endif">
+            <a href="{{route('lsiting.category')}}" class="menu-link">
               <div data-i18n="Basic">Category List</div>
             </a>
           </li>
@@ -211,27 +211,22 @@
       </li>
       {{-- catagory--}}
 
-        <li class="menu-item  @if(Route::currentRouteName() == 'listing.student.filter') active @endif" style="">
+        <li class="menu-item @if(Route::currentRouteName() == 'add.product.view') active @endif" style="">
             <a href="javascript:void(0);" class="menu-link menu-toggle">
             <i class="menu-icon tf-icons bx bxl-product-hunt"></i>
             <div data-i18n="Account Settings">Product</div>
             </a>
             <ul class="menu-sub">
-            <li class="menu-item">
-                <a href="{{url('/staff/student-listing/fiterd/'.'1')}}" class="menu-link">
-                <div data-i18n="Account">Add Product</div>
-                </a>
-            </li>
-            <li class="menu-item  @if(Route::currentRouteName() == 'listing.fee') active @endif">
-                <a href="{{route('listing.fee')}}" class="menu-link">
-                <div data-i18n="Basic">Product List</div>
-                </a>
-            </li>
-            {{-- <li class="menu-item">
-                <a href="{{url('/staff/student-listing/fiterd/'.'3')}}" class="menu-link">
-                <div data-i18n="Connections">3rd Class</div>
-                </a>
-            </li> --}}
+                <li class="menu-item @if(Route::currentRouteName() == 'add.product.view') active @endif">
+                    <a href="{{route('add.product.view')}}" class="menu-link">
+                    <div data-i18n="Account">Add Product</div>
+                    </a>
+                </li>
+                <li class="menu-item  @if(Route::currentRouteName() == 'add.category.view') active @endif">
+                    <a href="{{route('listing.fee')}}" class="menu-link">
+                    <div data-i18n="Basic">Product List</div>
+                    </a>
+                </li>
             </ul>
         </li>
         {{-- product --}}

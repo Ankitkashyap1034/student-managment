@@ -5,6 +5,7 @@ use App\Http\Controllers\HomeController;
 use App\Http\Controllers\StudentAuthController;
 use App\Http\Controllers\StudentController;
 use App\Http\Controllers\StaffController;
+use App\Http\Controllers\Product\ProductController;
 
 /*
 |--------------------------------------------------------------------------
@@ -59,5 +60,14 @@ Route::post('/login',[StaffController::class,'loginStaff'])->name('login.staff')
 Route::get('/logout',[StaffController::class,'logoutStaff'])->name('logout.staff');
 
 Route::middleware('auth')->prefix('product')->group(function () {
-    Route::get('/add-category',[StaffController::class,'viewAddCatogery'])->name('add.category.view');
+    Route::get('/add-category',[ProductController::class,'viewAddCatogery'])->name('add.category.view');
+    Route::post('/add-category',[ProductController::class,'storeCatogery'])->name('add.category.store');
+    Route::get('/category-list',[ProductController::class,'viewCategoryList'])->name('lsiting.category');
+    Route::get('/edit-category/{category}',[ProductController::class,'getCategoryDetails'])->name('get.category.info');
+    Route::put('/edit-category/',[ProductController::class,'storeCategoryUpdate'])->name('edit.category.store');
+    Route::get('/add-product',[ProductController::class,'viewAddProduct'])->name('add.product.view');
+    Route::post('/add-product',[ProductController::class,'storeProduct'])->name('add.product.store');
+    Route::get('/product-list',[ProductController::class,'viewProdcutList'])->name('lsiting.product');
+    Route::get('/edit-product/{product}',[ProductController::class,'getProductDetails'])->name('get.product.info');
+    Route::put('/edit-product/',[ProductController::class,'storeProductDetails'])->name('edit.product.store');
 });
