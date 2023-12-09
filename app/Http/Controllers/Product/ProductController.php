@@ -152,7 +152,6 @@ class ProductController extends Controller
         }
 
         $productModelInstanse->update([
-            'product_image' => $filename,
             'product_name' => $request->product_name,
             'category_id' => $request->category_id,
             'quantity' => $request->quantity,

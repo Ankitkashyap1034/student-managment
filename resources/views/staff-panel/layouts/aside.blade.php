@@ -197,7 +197,7 @@
               <div data-i18n="Account">Add Catogery</div>
             </a>
           </li>
-          <li class="menu-item  @if(Route::currentRouteName() == 'lsiting.category') active @endif">
+          <li class="menu-item  @if(Route::currentRouteName() == 'lsiting.product') active @endif">
             <a href="{{route('lsiting.category')}}" class="menu-link">
               <div data-i18n="Basic">Category List</div>
             </a>
@@ -211,7 +211,7 @@
       </li>
       {{-- catagory--}}
 
-        <li class="menu-item @if(Route::currentRouteName() == 'add.product.view') active @endif" style="">
+        <li class="menu-item @if(Route::currentRouteName() == 'add.product.view' || Route::currentRouteName() == 'lsiting.product') active @endif" style="">
             <a href="javascript:void(0);" class="menu-link menu-toggle">
             <i class="menu-icon tf-icons bx bxl-product-hunt"></i>
             <div data-i18n="Account Settings">Product</div>
@@ -222,8 +222,8 @@
                     <div data-i18n="Account">Add Product</div>
                     </a>
                 </li>
-                <li class="menu-item  @if(Route::currentRouteName() == 'add.category.view') active @endif">
-                    <a href="{{route('listing.fee')}}" class="menu-link">
+                <li class="menu-item  @if(Route::currentRouteName() == 'lsiting.product') active @endif">
+                    <a href="{{route('lsiting.product')}}" class="menu-link">
                     <div data-i18n="Basic">Product List</div>
                     </a>
                 </li>

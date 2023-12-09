@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\PayFee;
 use App\Models\Staff;
 use Illuminate\Http\Request;
 use App\Models\Student;
@@ -116,6 +117,8 @@ class HomeController extends Controller
     public function destroy(Student $student)
     {
         try{
+            $fee = PayFee::where('student_id',$student->id)->get();
+            $fee->each->delete();
             $student->delete();
             return response()->json([
                 'status' => true,
