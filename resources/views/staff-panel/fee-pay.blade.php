@@ -149,7 +149,7 @@
 
         $.ajax({
             type: 'GET',
-            url: '/student-info/' + studentMobile,
+            url: '/staff/student-info/' + studentMobile,
             success: function(response) {
                 if(response.status == true){
                     $('input[id="name"]').val(response.student.name);

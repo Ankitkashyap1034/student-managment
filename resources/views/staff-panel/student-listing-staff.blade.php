@@ -9,7 +9,11 @@
         <div class="layout-page">
             <div class="content-wrapper">
                 <div class="container mt-5">
-                    <h2 class="text-center mb-4">Student Listing</h2>
+                    @if(Route::currentRouteName() == 'listing.student.filter')
+                        <h2 class="text-center mb-4">Student listing of class {{$class}}</h2>
+                        @else
+                        <h2 class="text-center mb-4">Student listing</h2>
+                    @endif
 
                     <div class="table-responsive">
                         <table id="student-table" class="table table-bordered table-striped">
@@ -384,7 +388,7 @@
     </script>
 
     {{-- script for data table --}}
-    {{-- <script>
+    <script>
         $(document).ready(function() {
             $('#student-table').DataTable({
                 dom: 'Bfrtip',
@@ -393,7 +397,7 @@
                 ]
             });
         });
-    </script> --}}
+    </script>
     {{-- script for data table --}}
 
     @if(session('success'))

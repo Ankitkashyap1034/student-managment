@@ -27,7 +27,6 @@ class HomeController extends Controller
 
     public function store(Request $request)
     {
-
         $request->validate([
             'profile_img' => 'required',
             'name' => 'required|max:100',
@@ -40,7 +39,7 @@ class HomeController extends Controller
             'address' => 'required|max:256',
             'password' => 'required|confirmed|min:6|max:10'
         ]);
-        dd($request->all());
+
         if ($request->file('profile_img')) {
             $studentModelInstance = new Student();
             $file = $request->file('profile_img');
@@ -74,6 +73,8 @@ class HomeController extends Controller
                     'user_id' => $user->id,
                     'created_by' => $staffId->id
                 ]);
+
+                return redirect('/staff/listing')->with('success','Student Add Succesfully');
             }
         }else{
             Student::create([
@@ -89,11 +90,8 @@ class HomeController extends Controller
                 'user_id' => $user->id,
                 'created_by' => 'self'
             ]);
+            return redirect()->route('listing')->with('success','Student Add Succesfully');
         }
-
-
-        return redirect()->route('listing')->with('success','Student Add Succesfully');
-
     }
 
     public function viewList()
@@ -118,7 +116,7 @@ class HomeController extends Controller
     public function destroy(Student $student)
     {
         try{
-            // $student->delete();
+            $student->delete();
             return response()->json([
                 'status' => true,
             ],200);

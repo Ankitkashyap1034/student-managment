@@ -68,8 +68,8 @@
 
     <ul class="menu-inner py-1">
       <!-- Dashboard -->
-      <li class="menu-item active">
-        <a href="index.html" class="menu-link">
+      <li class="menu-item @if(Route::currentRouteName() == 'dashboard.staff') active @endif">
+        <a href="{{route('dashboard.staff')}}" class="menu-link">
           <i class="menu-icon tf-icons bx bx-home-circle"></i>
           <div data-i18n="Analytics">Dashboard</div>
         </a>
@@ -77,14 +77,14 @@
 
       <li class="menu-header small text-uppercase"><span class="menu-header-text">Student</span></li>
       <!-- Components -->
-      <li class="menu-item">
+      <li class="menu-item @if(Route::currentRouteName() == 'add.student.staff') active @endif">
         <a href="{{route('add.student.staff')}}" class="menu-link">
           <i class="menu-icon tf-icons bx bx-plus-circle"></i>
           <div data-i18n="Basic">Add Student</div>
         </a>
       </li>
 
-      <li class="menu-item">
+      <li class="menu-item @if(Route::currentRouteName() == 'listing.student.staff') active @endif">
         <a href="{{route('listing.student.staff')}}" class="menu-link">
           <i class="menu-icon tf-icons bx bx-user"></i>
           <div data-i18n="Basic">Student Listing</div>
@@ -95,7 +95,7 @@
        {{-- student class wise --}}
        {{-- <li class="menu-header small text-uppercase"><span class="menu-header-text">Class</span></li> --}}
 
-       <li class="menu-item" style="">
+       <li class="menu-item  @if(Route::currentRouteName() == 'listing.student.filter') active @endif" style="">
         <a href="javascript:void(0);" class="menu-link menu-toggle">
           <i class="menu-icon tf-icons bx bx-dock-top"></i>
           <div data-i18n="Account Settings">Student by Class</div>
@@ -168,14 +168,14 @@
 
       {{-- fee pay --}}
       <li class="menu-header small text-uppercase"><span class="menu-header-text">Fee Pay</span></li>
-      <li class="menu-item">
+      <li class="menu-item  @if(Route::currentRouteName() == 'pay.fee.view') active @endif">
         <a href="{{route('pay.fee.view')}}" class="menu-link">
           <i class="menu-icon tf-icons bx bx-dollar-circle"></i>
           <div data-i18n="Basic">Add Fee</div>
         </a>
       </li>
 
-      <li class="menu-item">
+      <li class="menu-item  @if(Route::currentRouteName() == 'listing.fee') active @endif">
         <a href="{{route('listing.fee')}}" class="menu-link">
           <i class="menu-icon tf-icons bx bx-dollar-circle"></i>
           <div data-i18n="Basic">Fee Listing</div>
@@ -183,9 +183,69 @@
       </li>
       {{-- fee pay --}}
 
+      {{-- product --}}
+      <li class="menu-header small text-uppercase"><span class="menu-header-text">Product</span></li>
+      {{-- catagory--}}
+      <li class="menu-item  @if(Route::currentRouteName() == 'listing.student.filter') active @endif" style="">
+        <a href="javascript:void(0);" class="menu-link menu-toggle">
+          <i class="menu-icon tf-icons bx bxs-category"></i>
+          <div data-i18n="Account Settings">Category</div>
+        </a>
+        <ul class="menu-sub">
+          <li class="menu-item">
+            <a href="{{url('/staff/student-listing/fiterd/'.'1')}}" class="menu-link">
+              <div data-i18n="Account">Add Catogery</div>
+            </a>
+          </li>
+          <li class="menu-item  @if(Route::currentRouteName() == 'listing.fee') active @endif">
+            <a href="{{route('listing.fee')}}" class="menu-link">
+              <div data-i18n="Basic">Category List</div>
+            </a>
+          </li>
+          {{-- <li class="menu-item">
+            <a href="{{url('/staff/student-listing/fiterd/'.'3')}}" class="menu-link">
+              <div data-i18n="Connections">3rd Class</div>
+            </a>
+          </li> --}}
+        </ul>
+      </li>
+      {{-- catagory--}}
+
+        <li class="menu-item  @if(Route::currentRouteName() == 'listing.student.filter') active @endif" style="">
+            <a href="javascript:void(0);" class="menu-link menu-toggle">
+            <i class="menu-icon tf-icons bx bxl-product-hunt"></i>
+            <div data-i18n="Account Settings">Product</div>
+            </a>
+            <ul class="menu-sub">
+            <li class="menu-item">
+                <a href="{{url('/staff/student-listing/fiterd/'.'1')}}" class="menu-link">
+                <div data-i18n="Account">Add Product</div>
+                </a>
+            </li>
+            <li class="menu-item  @if(Route::currentRouteName() == 'listing.fee') active @endif">
+                <a href="{{route('listing.fee')}}" class="menu-link">
+                <div data-i18n="Basic">Product List</div>
+                </a>
+            </li>
+            {{-- <li class="menu-item">
+                <a href="{{url('/staff/student-listing/fiterd/'.'3')}}" class="menu-link">
+                <div data-i18n="Connections">3rd Class</div>
+                </a>
+            </li> --}}
+            </ul>
+        </li>
+        {{-- product --}}
+
       {{-- authentication --}}
       <li class="menu-header small text-uppercase"><span class="menu-header-text">Authantication</span></li>
       <!-- Components -->
+      <li class="menu-item  @if(Route::currentRouteName() == 'staff.profile') active @endif">
+        <a href="{{route('staff.profile')}}" class="menu-link">
+          <i class="menu-icon tf-icons bx bx-user"></i>
+          <div data-i18n="Basic">Profile</div>
+        </a>
+      </li>
+
       <li class="menu-item">
         <a href="{{route('logout.staff')}}" class="menu-link">
           <i class="menu-icon tf-icons bx bx-collection"></i>

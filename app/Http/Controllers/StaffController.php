@@ -11,7 +11,7 @@ class StaffController extends Controller
 {
     public function viewStaffIndex()
     {
-        return view('staff-panel.staff-index');
+          return view('staff-panel.staff-index');
     }
 
     public function viewStaffLogin()
@@ -38,7 +38,7 @@ class StaffController extends Controller
                 // Authentication passed, manually create a session
                 $request->session()->regenerate();
 
-                return redirect()->route('home.staff');
+                return redirect()->route('dashboard.staff');
             }else{
                 return redirect()->back()->with('login-faild','Login credentials are not correct');
             }
@@ -119,7 +119,7 @@ class StaffController extends Controller
                     'staff_id' => $staff->id
                 ]);
 
-                return redirect()->back()->with('success','Fee Pay Successfully');
+                return redirect()->route('listing.fee')->with('success','Fee Pay Successfully');
         }else{
             return redirect()->back()->with('success','Fee Pay Successfully');
         }
@@ -137,9 +137,10 @@ class StaffController extends Controller
     public function viewListStudentFiltered($class)
     {
         $students = Student::where('class',$class)->get();
-        return view('pages.listing',[
+        return view('staff-panel.student-listing-staff',[
             'students' => $students,
-            'i' => 1
+            'i' => 1,
+            'class' => $class
         ]);
     }
 
@@ -151,6 +152,16 @@ class StaffController extends Controller
         return view('staff-panel.student-listing-staff',[
             'students' => $students,
             'i' => 1
+        ]);
+    }
+
+    public function viewDashboard()
+    {
+        $studentCount = Student::all()->count();
+        $paidFeeCount = PayFee::all()->count();
+        return view('staff-panel.dashboard',[
+            'studentCount' => $studentCount,
+            'paidFeeCount' => $paidFeeCount
         ]);
     }
 }

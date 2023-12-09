@@ -81,6 +81,24 @@
                                                 @enderror
                                             </div>
 
+                                            {{-- password --}}
+                                             <!-- password -->
+                                            <div class="form-group mb-3">
+                                                <label for="email">Password:</label>
+                                                <input type="password" name="password" class="form-control" id="password" placeholder="Enter password" required />
+                                                @error('password')
+                                                    <div class="text-danger">{{ $message }}</div>
+                                                @enderror
+                                            </div>
+
+                                            <!-- confirm password -->
+                                            <div class="form-group mb-3">
+                                                <label for="email">Confirm Password:</label>
+                                                <input type="password" name="password_confirmation" class="form-control" oninput="checkPassword();" id="confirm-password" placeholder="Enter confirm password" required>
+                                                <span class="text-danger" id="password-error"></span>
+                                            </div>
+                                            {{-- password --}}
+
                                             @if(Route::currentRouteName() === 'add.student')
                                                 <!-- password -->
                                                 <div class="form-group mb-3">
@@ -103,18 +121,18 @@
                                             <div class="form-group mb-3">
                                                 <label>Gender:</label>
                                                 <div class="form-check">
-                                                <input type="radio" class="form-check-input" name="gender" id="male" value="male"
-                                                @if(Route::currentRouteName() === 'edit.student.view')
-                                                    @if($studentDetail->gender === 'male') checked @endif
-                                                @endif required>
-                                                <label class="form-check-label" for="male">Male</label>
+                                                    <input type="radio" class="form-check-input" name="gender" id="male" value="male"
+                                                    @if(Route::currentRouteName() === 'edit.student.view')
+                                                        @if($studentDetail->gender === 'male') checked @endif
+                                                    @endif required>
+                                                    <label class="form-check-label" for="male">Male</label>
                                                 </div>
                                                 <div class="form-check">
                                                 <input type="radio" class="form-check-input" name="gender" id="female" value="female"
                                                     @if(Route::currentRouteName() === 'edit.student.view')
                                                         @if($studentDetail->gender === 'female') checked @endif
                                                     @endif
-                                                required>
+                                                    required />
                                                 <label class="form-check-label" for="female">Female</label>
                                                 </div>
                                                 <div class="form-check">
@@ -135,18 +153,18 @@
                                                 <label for="class">Class:</label>
                                                 <select class="form-control" id="class" name="class" required>
                                                     <option value="" disabled selected>Select Class</option>
-                                                    <option @if(Route::currentRouteName() === 'edit.student.view') {{ $studentDetail->class === '1' ? 'selected' : '' }} @endif value="1">1st </option>
-                                                    <option @if(Route::currentRouteName() === 'edit.student.view') {{ $studentDetail->class === '2' ? 'selected' : '' }} @endif value="2">2nd </option>
-                                                    <option @if(Route::currentRouteName() === 'edit.student.view') {{ $studentDetail->class === '3' ? 'selected' : '' }} @endif value="3">3rd </option>
-                                                    <option @if(Route::currentRouteName() === 'edit.student.view') {{ $studentDetail->class === '4' ? 'selected' : '' }} @endif value="4">4th </option>
-                                                    <option @if(Route::currentRouteName() === 'edit.student.view') {{ $studentDetail->class === '5' ? 'selected' : '' }} @endif value="5">5th </option>
-                                                    <option @if(Route::currentRouteName() === 'edit.student.view') {{ $studentDetail->class === '6' ? 'selected' : '' }} @endif value="6">6th </option>
-                                                    <option @if(Route::currentRouteName() === 'edit.student.view') {{ $studentDetail->class === '7' ? 'selected' : '' }} @endif  value="7">7th </option>
-                                                    <option @if(Route::currentRouteName() === 'edit.student.view') {{ $studentDetail->class === '8' ? 'selected' : '' }} @endif  value="8">8th </option>
-                                                    <option @if(Route::currentRouteName() === 'edit.student.view') {{ $studentDetail->class === '9' ? 'selected' : '' }} @endif  value="9">9th </option>
-                                                    <option @if(Route::currentRouteName() === 'edit.student.view') {{ $studentDetail->class === '10' ? 'selected' : '' }} @endif  value="10">10th </option>
-                                                    <option @if(Route::currentRouteName() === 'edit.student.view') {{ $studentDetail->class === '11' ? 'selected' : '' }} @endif  value="11">11th  (Intermediate 1st Year)</option>
-                                                    <option @if(Route::currentRouteName() === 'edit.student.view') {{ $studentDetail->class === '12' ? 'selected' : '' }} @endif  value="12">12th  (Intermediate 2nd Year)</option>
+                                                    <option value="1">1st </option>
+                                                    <option value="2">2nd </option>
+                                                    <option value="3">3rd </option>
+                                                    <option value="4">4th </option>
+                                                    <option value="5">5th </option>
+                                                    <option value="6">6th </option>
+                                                    <option  value="7">7th </option>
+                                                    <option  value="8">8th </option>
+                                                    <option  value="9">9th </option>
+                                                    <option   value="10">10th </option>
+                                                    <option   value="11">11th  (Intermediate 1st Year)</option>
+                                                    <option   value="12">12th  (Intermediate 2nd Year)</option>
                                                 </select>
                                                 @error('class')
                                                     <div class="text-danger">{{ $message }}</div>
@@ -177,33 +195,33 @@
             </div>
             {{-- </section> --}}
         </div>
-    <script>
-        function checkPassword()
-        {
-            var password = document.getElementById('password').value;
-            var confirmPassword = document.getElementById('confirm-password').value;
+        <script>
+            function checkPassword()
+            {
+                var password = document.getElementById('password').value;
+                var confirmPassword = document.getElementById('confirm-password').value;
 
-            if(password != confirmPassword){
-                document.getElementById('password-error').textContent = 'Password and confirm password does not match';
-            }else{
-                document.getElementById('password-error').textContent = '';
+                if(password != confirmPassword){
+                    document.getElementById('password-error').textContent = 'Password and confirm password does not match';
+                }else{
+                    document.getElementById('password-error').textContent = '';
+                }
             }
-        }
-        function checkMobileNo(mobileNo)
-        {
-            // var regex = /^[0-9]{11}$/;
+            function checkMobileNo(mobileNo)
+            {
+                // var regex = /^[0-9]{11}$/;
 
-            // Check if the mobile number is valid
-            if (mobileNo.value.length != 10) {
-                document.getElementById('mobile-no-error').textContent = 'Mobile no must the 10 digits';
-                mobileNo.classList.add('is-invalid');
-            }else{
-                document.getElementById('mobile-no-error').textContent = '';
-                mobileNo.classList.remove('is-invalid');
+                // Check if the mobile number is valid
+                if (mobileNo.value.length != 10) {
+                    document.getElementById('mobile-no-error').textContent = 'Mobile no must the 10 digits';
+                    mobileNo.classList.add('is-invalid');
+                }else{
+                    document.getElementById('mobile-no-error').textContent = '';
+                    mobileNo.classList.remove('is-invalid');
+                }
             }
-        }
 
-    </script>
+        </script>
         </div>
 
     </div>
