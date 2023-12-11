@@ -4,15 +4,12 @@ namespace App\Http\Controllers;
 
 use App\Models\PayFee;
 use App\Models\Staff;
-use Illuminate\Http\Request;
 use App\Models\Student;
 use App\Models\User;
-use Illuminate\Support\Facades\Log;
-use Illuminate\Support\Facades\Storage;
-use Illuminate\Validation\Validator;
-use Illuminate\Http\Exceptions\HttpResponseException;
-use Illuminate\Support\Facades\Hash;
 use Auth;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Log;
 
 class HomeController extends Controller
 {
@@ -38,7 +35,7 @@ class HomeController extends Controller
             'class' => 'required|max:30',
             'email' => 'required|unique:student,email|unique:users,email',
             'address' => 'required|max:256',
-            'password' => 'required|confirmed|min:6|max:10'
+            'password' => 'required|confirmed|min:6|max:10',
         ]);
 
         if ($request->file('profile_img')) {
@@ -53,13 +50,12 @@ class HomeController extends Controller
         $user = User::create([
             'name' => $request->name,
             'email' => $request->email,
-            'password' => Hash::make($request->password)
+            'password' => Hash::make($request->password),
         ]);
 
-
-        if(Auth::user()){
-            if(Auth::user()->user_type == '1'){
-                $staffId = Staff::where('user_id',Auth::user()->id)->first();
+        if (Auth::user()) {
+            if (Auth::user()->user_type == '1') {
+                $staffId = Staff::where('user_id', Auth::user()->id)->first();
 
                 Student::create([
                     'profile_img' => $filename,
@@ -72,12 +68,12 @@ class HomeController extends Controller
                     'email' => $request->email,
                     'address' => $request->address,
                     'user_id' => $user->id,
-                    'created_by' => $staffId->id
+                    'created_by' => $staffId->id,
                 ]);
 
-                return redirect('/staff/listing')->with('success','Student Add Succesfully');
+                return redirect('/staff/listing')->with('success', 'Student Add Succesfully');
             }
-        }else{
+        } else {
             Student::create([
                 'profile_img' => $filename,
                 'name' => $request->name,
@@ -89,41 +85,43 @@ class HomeController extends Controller
                 'email' => $request->email,
                 'address' => $request->address,
                 'user_id' => $user->id,
-                'created_by' => 'self'
+                'created_by' => 'self',
             ]);
-            return redirect()->route('listing')->with('success','Student Add Succesfully');
+
+            return redirect()->route('listing')->with('success', 'Student Add Succesfully');
         }
     }
 
     public function viewList()
     {
-        if(Auth::user()){
-            if(Auth::user()->user_type == '1'){
-                $staffId = Staff::where('user_id',Auth::user()->id)->pluck('id');
-                $students = Student::where('created_by',$staffId)->get();
-            }else{
+        if (Auth::user()) {
+            if (Auth::user()->user_type == '1') {
+                $staffId = Staff::where('user_id', Auth::user()->id)->pluck('id');
+                $students = Student::where('created_by', $staffId)->get();
+            } else {
                 $students = Student::all();
             }
-        }
-        else{
+        } else {
             $students = Student::all();
         }
-        return view('pages.listing',[
+
+        return view('pages.listing', [
             'students' => $students,
-            'i' => 1
+            'i' => 1,
         ]);
     }
 
     public function destroy(Student $student)
     {
-        try{
-            $fee = PayFee::where('student_id',$student->id)->get();
+        try {
+            $fee = PayFee::where('student_id', $student->id)->get();
             $fee->each->delete();
             $student->delete();
+
             return response()->json([
                 'status' => true,
-            ],200);
-        }catch (\Exception $ex) {
+            ], 200);
+        } catch (\Exception $ex) {
             Log::error('getClientService', [
                 'message' => $ex->getMessage(),
                 'trace' => $ex->getTraceAsString(),
@@ -138,18 +136,18 @@ class HomeController extends Controller
 
     public function viewEditStudent(Student $student)
     {
-        return view('pages.add-student-form',[
-            'studentDetail' => $student
+        return view('pages.add-student-form', [
+            'studentDetail' => $student,
         ]);
     }
 
     public function viewStudent(Student $student)
     {
-        try{
+        try {
             return response()->json([
                 'status' => true,
                 'studentDetials' => $student,
-            ],200);
+            ], 200);
         } catch (\Exception $ex) {
             Log::error('getClientService', [
                 'message' => $ex->getMessage(),
@@ -175,11 +173,9 @@ class HomeController extends Controller
             'address' => 'required|max:256',
         ]);
 
-
-
         $studentModelInstance = Student::find($request->student_id);
 
-        if($request->profile_img){
+        if ($request->profile_img) {
             $file = $request->file('profile_img');
             $filename = date('YmdHi').$file->getClientOriginalName();
             $path = $file->storeAs('public/student-profile-img', $filename);
@@ -198,7 +194,7 @@ class HomeController extends Controller
             'address' => $request->address,
         ]);
 
-        return redirect('/staff/listing')->with('edit-successfully','Student Edit Succesfully');
+        return redirect('/staff/listing')->with('edit-successfully', 'Student Edit Succesfully');
     }
 
     public function viewFormAjax()
@@ -208,7 +204,7 @@ class HomeController extends Controller
 
     public function storeStudentAjax(Request $request)
     {
-        try{
+        try {
 
             if ($request->file('profile_img')) {
                 $studentModelInstance = new Student();
@@ -229,12 +225,13 @@ class HomeController extends Controller
                 'email' => $request->email,
                 'address' => $request->address,
             ]);
+
             return response()->json([
                 'status' => true,
-                'message' => 'Student add successfully'
-            ],200);
+                'message' => 'Student add successfully',
+            ], 200);
 
-        }catch (\Exception $ex) {
+        } catch (\Exception $ex) {
             Log::error('getClientService', [
                 'message' => $ex->getMessage(),
                 'trace' => $ex->getTraceAsString(),

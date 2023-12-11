@@ -1,9 +1,10 @@
 <?php
 
 namespace App\Http\Controllers\Product;
-use App\Models\Product;
-use App\Models\Category;
+
 use App\Http\Controllers\Controller;
+use App\Models\Category;
+use App\Models\Product;
 use Illuminate\Http\Request;
 use Log;
 
@@ -17,8 +18,9 @@ class ProductController extends Controller
     public function viewAddProduct()
     {
         $categeries = Category::all();
-        return view('staff-panel.product.add-product',[
-            'categeries' => $categeries
+
+        return view('staff-panel.product.add-product', [
+            'categeries' => $categeries,
         ]);
     }
 
@@ -34,27 +36,28 @@ class ProductController extends Controller
             'order' => $request->order,
         ]);
 
-        return redirect()->route('lsiting.category')->with('success','Category created successfully');
+        return redirect()->route('lsiting.category')->with('success', 'Category created successfully');
     }
 
     public function viewCategoryList()
     {
         $data = Category::all();
-        return view('staff-panel.category.category-listing',[
+
+        return view('staff-panel.category.category-listing', [
             'data' => $data,
-            'i' => 1
+            'i' => 1,
         ]);
     }
 
     public function getCategoryDetails(Category $category)
     {
-        try{
+        try {
 
             return response()->json([
                 'status' => true,
-                'categoryDetails' => $category
+                'categoryDetails' => $category,
             ]);
-        }catch (\Exception $ex) {
+        } catch (\Exception $ex) {
             Log::error('getClientService', [
                 'message' => $ex->getMessage(),
                 'trace' => $ex->getTraceAsString(),
@@ -68,13 +71,13 @@ class ProductController extends Controller
 
     public function getProductDetails(Product $product)
     {
-        try{
+        try {
 
             return response()->json([
                 'status' => true,
-                'productDetails' => $product
+                'productDetails' => $product,
             ]);
-        }catch (\Exception $ex) {
+        } catch (\Exception $ex) {
             Log::error('getClientService', [
                 'message' => $ex->getMessage(),
                 'trace' => $ex->getTraceAsString(),
@@ -91,7 +94,7 @@ class ProductController extends Controller
         $request->validate([
             'category_name' => 'required',
             'order' => 'required',
-            'category_id' => 'required'
+            'category_id' => 'required',
         ]);
 
         $categoryModelInstance = Category::find($request->category_id);
@@ -100,7 +103,7 @@ class ProductController extends Controller
             'order' => $request->order,
         ]);
 
-        return redirect()->route('lsiting.category')->with('success_update','Category update successfully');
+        return redirect()->route('lsiting.category')->with('success_update', 'Category update successfully');
     }
 
     public function storeProduct(Request $request)
@@ -129,7 +132,7 @@ class ProductController extends Controller
             'description' => $request->description,
         ]);
 
-        return redirect()->route('lsiting.product')->with('success','Category created successfully');
+        return redirect()->route('lsiting.product')->with('success', 'Category created successfully');
     }
 
     public function storeProductDetails(Request $request)
@@ -158,18 +161,18 @@ class ProductController extends Controller
             'description' => $request->description,
         ]);
 
-        return redirect()->route('lsiting.product')->with('update_success','Category update successfully');
+        return redirect()->route('lsiting.product')->with('update_success', 'Category update successfully');
     }
 
     public function viewProdcutList()
     {
         $data = Product::all();
         $categeries = Category::all();
-        return view('staff-panel.product.product-listing',[
+
+        return view('staff-panel.product.product-listing', [
             'data' => $data,
             'categeries' => $categeries,
-            'i' => 1
+            'i' => 1,
         ]);
     }
-
 }

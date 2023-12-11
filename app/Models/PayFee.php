@@ -8,8 +8,11 @@ use Illuminate\Database\Eloquent\Model;
 class PayFee extends Model
 {
     use HasFactory;
+
     protected $table = 'student_fee';
+
     protected $primary_key = 'id';
+
     protected $fillable =
     [
         'mobile_no',
@@ -17,11 +20,11 @@ class PayFee extends Model
         'fee_amount',
         'payment_mode',
         'remark',
-        'staff_id'
+        'staff_id',
     ];
 
     public function student()
     {
-        return $this->belongsTo(Student::class,'student_id','id');
+        return $this->belongsTo(Student::class, 'student_id', 'id');
     }
 }

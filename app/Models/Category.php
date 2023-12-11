@@ -10,7 +10,9 @@ class Category extends Model
     use HasFactory;
 
     protected $table = 'category';
+
     protected $primary_key = 'id';
+
     protected $fillable =
     [
         'category_name',
@@ -19,6 +21,6 @@ class Category extends Model
 
     public function user()
     {
-        return $this->hasOne(User::class,'id');
+        return $this->hasOne(User::class, 'id');
     }
 }

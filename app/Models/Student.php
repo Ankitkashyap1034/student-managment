@@ -8,8 +8,11 @@ use Illuminate\Database\Eloquent\Model;
 class Student extends Model
 {
     use HasFactory;
+
     protected $table = 'student';
+
     protected $primary_key = 'id';
+
     protected $fillable =
     [
         'profile_img',
@@ -23,11 +26,11 @@ class Student extends Model
         'address',
         'password',
         'user_id',
-        'created_by'
+        'created_by',
     ];
 
     public function studentFee()
     {
-        return $this->hasOne(PayFee::class,'id');
+        return $this->hasOne(PayFee::class, 'id');
     }
 }

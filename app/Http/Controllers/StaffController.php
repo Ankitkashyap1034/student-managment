@@ -1,24 +1,25 @@
 <?php
 
 namespace App\Http\Controllers;
+
+use App\Models\PayFee;
 use App\Models\Staff;
 use App\Models\Student;
-use App\Models\PayFee;
-use Illuminate\Http\Request;
 use Auth;
+use Illuminate\Http\Request;
 
 class StaffController extends Controller
 {
     public function viewStaffIndex()
     {
-          return view('staff-panel.staff-index');
+        return view('staff-panel.staff-index');
     }
 
     public function viewStaffLogin()
     {
-        if(!Auth::user()){
+        if (! Auth::user()) {
             return view('staff-panel.login');
-        }else{
+        } else {
             return redirect()->route('home.staff');
         }
     }
@@ -27,38 +28,40 @@ class StaffController extends Controller
     {
         $request->validate([
             'email' => 'required',
-             'password' => 'required'
+            'password' => 'required',
         ]);
 
         $credentials = $request->only('email', 'password');
 
-        $user = Staff::where('email',$request->email)->first();
-        if($user){
+        $user = Staff::where('email', $request->email)->first();
+        if ($user) {
             if (Auth::attempt($credentials)) {
                 // Authentication passed, manually create a session
                 $request->session()->regenerate();
 
                 return redirect()->route('dashboard.staff');
-            }else{
-                return redirect()->back()->with('login-faild','Login credentials are not correct');
+            } else {
+                return redirect()->back()->with('login-faild', 'Login credentials are not correct');
             }
-        }else{
-            return redirect()->back()->with('email-faild','Login credentials are not correct');
+        } else {
+            return redirect()->back()->with('email-faild', 'Login credentials are not correct');
         }
     }
 
     public function logoutStaff()
     {
         Auth::logout();
-        return redirect()->route('login.staff')->with('logout-successfull','Log out Successfull');
+
+        return redirect()->route('login.staff')->with('logout-successfull', 'Log out Successfull');
     }
 
     public function feePayView()
     {
-        if(Auth::user()->user_type == 1){
+        if (Auth::user()->user_type == 1) {
             $studentData = Student::all();
-            return view('staff-panel.fee-pay',[
-                'studentsData' => $studentData
+
+            return view('staff-panel.fee-pay', [
+                'studentsData' => $studentData,
             ]);
         }
     }
@@ -70,22 +73,21 @@ class StaffController extends Controller
 
     public function getStudentInfo($studentMobile)
     {
-        try{
-            $studentDeatials = Student::where('mobile_no',$studentMobile)->first();
-            if($studentDeatials){
+        try {
+            $studentDeatials = Student::where('mobile_no', $studentMobile)->first();
+            if ($studentDeatials) {
                 return response()->json([
                     'status' => true,
-                    'student' => $studentDeatials
-                ],200);
-            }else{
+                    'student' => $studentDeatials,
+                ], 200);
+            } else {
                 return response()->json([
                     'status' => false,
-                    'message' => 'No student found with this mobile no'
-                ],200);
+                    'message' => 'No student found with this mobile no',
+                ], 200);
             }
 
-        }
-        catch (\Exception $ex) {
+        } catch (\Exception $ex) {
             Log::error('getClientService', [
                 'message' => $ex->getMessage(),
                 'trace' => $ex->getTraceAsString(),
@@ -107,51 +109,53 @@ class StaffController extends Controller
             'mobile_no' => 'required',
         ]);
 
-        if(Auth::user()->user_type == '1'){
-            $staff = Staff::where('user_id',Auth::user()->id)->first();
+        if (Auth::user()->user_type == '1') {
+            $staff = Staff::where('user_id', Auth::user()->id)->first();
 
-                PayFee::create([
-                    'student_id' => $request->student_id,
-                    'fee_amount' => $request->fee_amount,
-                    'payment_mode' => $request->payment_mode,
-                    'remark' => $request->remark,
-                    'mobile_no' => $request->mobile_no,
-                    'staff_id' => $staff->id
-                ]);
+            PayFee::create([
+                'student_id' => $request->student_id,
+                'fee_amount' => $request->fee_amount,
+                'payment_mode' => $request->payment_mode,
+                'remark' => $request->remark,
+                'mobile_no' => $request->mobile_no,
+                'staff_id' => $staff->id,
+            ]);
 
-                return redirect()->route('listing.fee')->with('success','Fee Pay Successfully');
-        }else{
-            return redirect()->back()->with('success','Fee Pay Successfully');
+            return redirect()->route('listing.fee')->with('success', 'Fee Pay Successfully');
+        } else {
+            return redirect()->back()->with('success', 'Fee Pay Successfully');
         }
     }
 
     public function viewListFee()
     {
         $data = PayFee::all();
-        return view('staff-panel.fee-listing',[
+
+        return view('staff-panel.fee-listing', [
             'data' => $data,
-            'i' => 1
+            'i' => 1,
         ]);
     }
 
     public function viewListStudentFiltered($class)
     {
-        $students = Student::where('class',$class)->get();
-        return view('staff-panel.student-listing-staff',[
+        $students = Student::where('class', $class)->get();
+
+        return view('staff-panel.student-listing-staff', [
             'students' => $students,
             'i' => 1,
-            'class' => $class
+            'class' => $class,
         ]);
     }
 
     public function viewListStudent()
     {
-        $staffId = Staff::where('user_id',Auth::user()->id)->pluck('id');
-        $students = Student::where('created_by',$staffId)->get();
+        $staffId = Staff::where('user_id', Auth::user()->id)->pluck('id');
+        $students = Student::where('created_by', $staffId)->get();
 
-        return view('staff-panel.student-listing-staff',[
+        return view('staff-panel.student-listing-staff', [
             'students' => $students,
-            'i' => 1
+            'i' => 1,
         ]);
     }
 
@@ -159,9 +163,10 @@ class StaffController extends Controller
     {
         $studentCount = Student::all()->count();
         $paidFeeCount = PayFee::all()->count();
-        return view('staff-panel.dashboard',[
+
+        return view('staff-panel.dashboard', [
             'studentCount' => $studentCount,
-            'paidFeeCount' => $paidFeeCount
+            'paidFeeCount' => $paidFeeCount,
         ]);
     }
 }
