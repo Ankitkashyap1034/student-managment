@@ -41,6 +41,7 @@ Route::get('/student-logut', [StudentAuthController::class, 'logout'])->name('lo
 
 // for student panel
 Route::get('/student-index', [StudentController::class, 'index'])->name('home.student')->middleware('auth');
+Route::get('/student/attendance/', [StudentController::class, 'viewAttendance'])->name('attendance.student.view')->middleware('auth');
 
 // staff routes
 
@@ -55,6 +56,9 @@ Route::middleware('auth')->prefix('staff')->group(function () {
     Route::get('/fee-pay/listing', [StaffController::class, 'viewListFee'])->name('listing.fee');
     Route::get('/student-listing/fiterd/{class}', [StaffController::class, 'viewListStudentFiltered'])->name('listing.student.filter');
     Route::put('/profile-details/', [StaffController::class, 'storeProfileUpdate'])->name('store.profile.staff');
+    // Route::get('/student-attendance/', [StaffController::class, 'viewStudentAttendance'])->name('view.student.attendance');
+    Route::get('/student-attendance/', [StaffController::class, 'viewStudentAttendanceByStudent'])->name('view.student.attendance.id');
+    Route::post('student-attedance/update', [StaffController::class, 'storeStudentAttendanceByStudent'])->name('view.student.attendance');
 });
 Route::get('/login', [StaffController::class, 'viewStaffLogin'])->name('login.staff');
 Route::post('/login', [StaffController::class, 'loginStaff'])->name('login.staff');

@@ -29,6 +29,7 @@
                         </div>
 
                         <button type="submit" class="btn btn-primary btn-block">Login</button>
+                        <a href="{{route('index')}}" class="btn btn-secondary btn-block">Go to homepage</a>
                     </form>
                 </div>
             </div>

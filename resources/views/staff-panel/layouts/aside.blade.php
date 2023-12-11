@@ -164,6 +164,16 @@
         </ul>
       </li>
        {{-- student class wise --}}
+       <li class="menu-header small text-uppercase"><span class="menu-header-text">Student Attendance</span></li>
+       <li class="menu-item  @if(Route::currentRouteName() == 'view.student.attendance.id') active @endif">
+         <a href="{{route('view.student.attendance.id')}}" class="menu-link">
+           <i class="menu-icon tf-icons bx bx-spreadsheet"></i>
+           <div data-i18n="Basic">Add Attendance</div>
+         </a>
+       </li>
+       {{-- student attendance --}}
+
+       {{-- student attendance --}}
 
 
       {{-- fee pay --}}

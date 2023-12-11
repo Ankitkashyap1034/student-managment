@@ -75,39 +75,27 @@
         <div class="main-panel" style="background-color: #ffffff; !important">
             <!-- partial -->
             <div class="container mt-5">
-                <div class="row justify-content-center">
-                    <div class="col-md-8">
+                    <h2 class="text-center mb-4">Student Attendance</h2>
 
-                        <!-- Student Profile -->
-                        <div class="card" style="background-color: whitesmoke;">
-                            <div class="card-header" style="background-color: black;">
-                                Student Profile
-                            </div>
-                            <div class="card-body">
-
-                                <!-- Profile Image -->
-                                <div class="text-center mb-4">
-                                    <img src="{{asset('storage/student-profile-img/'.$studentDetails->profile_img)}}" alt="Profile Image" class="img-fluid rounded-circle" style="width: 150px; height: 150px;">
-                                </div>
-
-                                <!-- Profile Details -->
-                                <ul class="list-group">
-                                    <li class="list-group-item"><strong>Name:</strong> {{Auth::user()->name}}</li>
-                                    <li class="list-group-item"><strong>Email: </strong>  {{Auth::user()->email}}</li>
-                                    <li class="list-group-item"><strong>Mobile No: </strong>  {{$studentDetails->mobile_no}}</li>
-                                    <li class="list-group-item"><strong>Father Name: </strong>  {{$studentDetails->father_name}}</li>
-                                    <li class="list-group-item"><strong>Mother Name: </strong>  {{$studentDetails->mother_name}}</li>
-                                    <li class="list-group-item"><strong>Gender: </strong>  {{$studentDetails->gender}}</li>
-                                    <li class="list-group-item"><strong>Class: </strong>  {{$studentDetails->class}}</li>
-                                    <li class="list-group-item"><strong>Address: </strong>  {{$studentDetails->address}}</li>
-                                    <!-- Add more profile details as needed -->
-                                </ul>
-
-                            </div>
-                        </div>
-                        <!-- End Student Profile -->
-
-                    </div>
+                <div class="table-responsive">
+                    <table id="attendance-table" class="table table-bordered table-striped">
+                        <thead>
+                            <th>S.No</th>
+                            <th>Name</th>
+                            <th>Date</th>
+                            <th>Status</th>
+                        </thead>
+                        <tbody>
+                            @foreach ($attendance as $attendanceData)
+                                <tr>
+                                    <td>{{$i++}}</td>
+                                    <td style="color: #00dd6a;" class="font-weight-bold">{{$studentDetails->name}}</td>
+                                    <td style="color: #00dd6a;" class="font-weight-bold">{{$attendanceData->day}}-Dec-2023</td>
+                                    <td style="color: #00dd6a;" class="font-weight-bold">{{$attendanceData->status}}</td>
+                                </tr>
+                            @endforeach
+                        </tbody>
+                    </table>
                 </div>
             </div>
         </div>
@@ -115,4 +103,16 @@
         </div>
         <!-- page-body-wrapper ends -->
     </div>
+    {{-- script for data table --}}
+    <script>
+        $(document).ready(function() {
+            $('#attendance-table').DataTable({
+                searching: true,
+                paging: true,
+                ordering: true
+                // Add other options as needed
+            });
+        });
+    </script>
+    {{-- script for data table --}}
 @endsection

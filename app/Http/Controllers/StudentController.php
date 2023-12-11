@@ -2,7 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Attendance;
 use App\Models\Student;
+use Attribute;
 use Auth;
 
 class StudentController extends Controller
@@ -18,5 +20,18 @@ class StudentController extends Controller
         } else {
             return redirect()->route('home.staff');
         }
+    }
+
+    public function viewAttendance()
+    {
+        $student = Student::where('user_id',Auth::user()->id)->first();
+        $attendance = Attendance::where('student_id',$student->id)->get();
+        // dd($attendance);
+
+        return view('panel.attendance.attendance',[
+            'studentDetails' => $student,
+            'i' => 1,
+            'attendance' => $attendance
+        ]);
     }
 }

@@ -6,8 +6,11 @@ use App\Models\PayFee;
 use App\Models\Staff;
 use App\Models\Student;
 use App\Models\User;
+use App\Models\Attendance;
+use Attribute;
 use Auth;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Redis;
 
 class StaffController extends Controller
 {
@@ -214,5 +217,47 @@ class StaffController extends Controller
             'address' => $request->address,
         ]);
         return redirect()->back()->with('success','staff update succesfully');
+    }
+
+    public function viewStudentAttendance()
+    {
+        $data = Student::all();
+        return view('staff-panel.student.attendance-main',[
+            'data' => $data,
+        ]);
+    }
+
+    public function viewStudentAttendanceByStudent(Request $request)
+    {
+        $studentData = Student::all();
+
+        // $student =
+        return view('staff-panel.student.attendance-student',[
+            'studentData' => $studentData,
+            'i' => 1
+        ]);
+    }
+
+    public function storeStudentAttendanceByStudent(Request $request)
+    {
+        $attendanceExist = Attendance::where('day',$request->day)->where('student_id',$request->student_id)->first();
+        if($attendanceExist)
+        {
+            $attendanceExist->update([
+                'status' => $request->status
+            ]);
+
+            return redirect()->back()->with('update_success','attendance create');
+        }else{
+
+            $staff = Staff::where('user_id',Auth::user()->id)->first();
+            Attendance::create([
+                'student_id' => $request->student_id,
+                'status' => $request->status,
+                'staff_id' => $staff->id,
+                'day' => $request->day,
+            ]);
+            return redirect()->back()->with('success','attendance update');
+        }
     }
 }
