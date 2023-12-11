@@ -18,10 +18,12 @@ class Staff extends Model
         'name',
         'email',
         'user_id',
+        'mobile_no',
+        'address',
     ];
 
     public function user()
     {
-        return $this->belongsToMany(User::class, 'user_id', 'id');
+        return $this->belongsTo(User::class, 'user_id', 'id');
     }
 }

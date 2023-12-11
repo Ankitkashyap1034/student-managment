@@ -54,6 +54,7 @@ Route::middleware('auth')->prefix('staff')->group(function () {
     Route::post('/fee-pay/store', [StaffController::class, 'storeFee'])->name('pay.fee.store');
     Route::get('/fee-pay/listing', [StaffController::class, 'viewListFee'])->name('listing.fee');
     Route::get('/student-listing/fiterd/{class}', [StaffController::class, 'viewListStudentFiltered'])->name('listing.student.filter');
+    Route::put('/profile-details/', [StaffController::class, 'storeProfileUpdate'])->name('store.profile.staff');
 });
 Route::get('/login', [StaffController::class, 'viewStaffLogin'])->name('login.staff');
 Route::post('/login', [StaffController::class, 'loginStaff'])->name('login.staff');

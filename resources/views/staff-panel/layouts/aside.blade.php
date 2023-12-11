@@ -197,16 +197,11 @@
               <div data-i18n="Account">Add Catogery</div>
             </a>
           </li>
-          <li class="menu-item  @if(Route::currentRouteName() == 'lsiting.product') active @endif">
+          <li class="menu-item  @if(Route::currentRouteName() == 'lsiting.product' || Route::currentRouteName() == 'lsiting.category') active @endif">
             <a href="{{route('lsiting.category')}}" class="menu-link">
               <div data-i18n="Basic">Category List</div>
             </a>
           </li>
-          {{-- <li class="menu-item">
-            <a href="{{url('/staff/student-listing/fiterd/'.'3')}}" class="menu-link">
-              <div data-i18n="Connections">3rd Class</div>
-            </a>
-          </li> --}}
         </ul>
       </li>
       {{-- catagory--}}

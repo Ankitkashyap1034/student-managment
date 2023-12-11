@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\PayFee;
 use App\Models\Staff;
 use App\Models\Student;
+use App\Models\User;
 use Auth;
 use Illuminate\Http\Request;
 
@@ -12,7 +13,8 @@ class StaffController extends Controller
 {
     public function viewStaffIndex()
     {
-        return view('staff-panel.staff-index');
+        $authStaff = Staff::where('user_id',Auth::user()->id)->first();
+        return view('staff-panel.staff-index',['authStaff' => $authStaff]);
     }
 
     public function viewStaffLogin()
@@ -20,7 +22,7 @@ class StaffController extends Controller
         if (! Auth::user()) {
             return view('staff-panel.login');
         } else {
-            return redirect()->route('home.staff');
+            return redirect()->route('dashboard.staff');
         }
     }
 
@@ -36,9 +38,8 @@ class StaffController extends Controller
         $user = Staff::where('email', $request->email)->first();
         if ($user) {
             if (Auth::attempt($credentials)) {
-                // Authentication passed, manually create a session
-                $request->session()->regenerate();
 
+                $request->session()->regenerate();
                 return redirect()->route('dashboard.staff');
             } else {
                 return redirect()->back()->with('login-faild', 'Login credentials are not correct');
@@ -168,5 +169,50 @@ class StaffController extends Controller
             'studentCount' => $studentCount,
             'paidFeeCount' => $paidFeeCount,
         ]);
+    }
+
+    public function getStaffDetails(Staff $staff)
+    {
+        try{
+            return response()->json([
+                'status' => true,
+                'staffData' => $staff
+            ],200);
+        } catch (\Exception $ex) {
+            Log::error('getClientService', [
+                'message' => $ex->getMessage(),
+                'trace' => $ex->getTraceAsString(),
+            ]);
+
+            return response()->json([
+                'message' => $ex->getMessage(),
+            ], 404);
+        }
+    }
+
+    public function storeProfileUpdate(Request $request)
+    {
+        $request->validate([
+            'name' => 'required',
+            'email' => 'required',
+            'mobile_no' => 'required|max:12|min:10',
+            'address' => 'required',
+            'staff_id' => 'required',
+            'user_id' => 'required'
+        ]);
+        $userModelInstance = User::find($request->user_id);
+        $userModelInstance->update([
+            'name' => $request->name,
+            'email' => $request->email
+        ]);
+
+        $staffModelInstance = Staff::find($request->staff_id);
+        $staffModelInstance->update([
+            'name' => $request->name,
+            'email' => $request->email,
+            'mobile_no' => $request->mobile_no,
+            'address' => $request->address,
+        ]);
+        return redirect()->back()->with('success','staff update succesfully');
     }
 }
