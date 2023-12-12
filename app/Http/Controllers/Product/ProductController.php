@@ -73,6 +73,7 @@ class ProductController extends Controller
     {
         try {
 
+            // dd($product->product_images);
             return response()->json([
                 'status' => true,
                 'productDetails' => $product,
@@ -116,21 +117,32 @@ class ProductController extends Controller
             'description' => 'required',
         ]);
 
-        if ($request->file('product_image')) {
-            $productModelInstanse = new Product();
-            $file = $request->file('product_image');
-            $filename = date('YmdHi').$file->getClientOriginalName();
-            $path = $file->storeAs('public/product-img/', $filename);
-            $productModelInstanse->product_image = $filename;
-        }
-
-        $productModelInstanse::create([
-            'product_image' => $filename,
+        // $productModelInstance = new Product();
+        $productModelInstance = Product::create([
+            // 'product_image' => $filename,
             'product_name' => $request->product_name,
             'category_id' => $request->category_id,
             'quantity' => $request->quantity,
             'description' => $request->description,
         ]);
+
+        if ($request->hasFile('product_image')) {
+            $filenames = [];
+
+            foreach ($request->file('product_image') as $file) {
+                $filename = date('YmdHi') . $file->getClientOriginalName();
+                $path = $file->storeAs('public/product-img/', $filename);
+
+                $filenames[] = $filename;
+            }
+
+            // Set the product_images attribute as an array
+            $productModelInstance->product_images = $filenames;
+            $productModelInstance->save();
+            // Save the model
+
+        }
+
 
         return redirect()->route('lsiting.product')->with('success', 'Category created successfully');
     }
@@ -168,6 +180,12 @@ class ProductController extends Controller
     {
         $data = Product::all();
         $categeries = Category::all();
+
+        // dd($data[7]->product_images);
+
+        // $secondImageName = json_decode($data[7]->product_image,true);
+        // $decodedArray = json_decode($data[7]->product_images, true);
+        // dd($decodedArray);
 
         return view('staff-panel.product.product-listing', [
             'data' => $data,

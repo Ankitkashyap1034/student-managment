@@ -32,7 +32,9 @@
                                         <tr>
                                             <td>{{$i++}}</td>
                                             <td>
-                                                <img width="10%" src="{{asset('storage/product-img/'.$productDetails->product_image)}}" alt="Product Image">
+                                                @foreach ($productDetails->product_images as $productImage)
+                                                    <img width="10%" src="{{asset('storage/product-img/'.$productImage)}}" alt="Product Image">
+                                                @endforeach
                                             </td>
                                             <td>{{$productDetails->product_name}}</td>
                                             <td>{{$productDetails->category->category_name}}</td>
@@ -61,7 +63,7 @@
                             <button type="button" class="close" data-dismiss="modal">&times;</button>
                         </div>
 
-                        <div class="text-center p-2">
+                        <div class="text-center p-2" id="edit-product-img-container">
                             <img id="edit-product-img" width="20%" src="" class="img-fluid" alt="Student Profile Image">
                         </div>
 
@@ -146,7 +148,15 @@
                             $('input[name="quantity"]').val(response.productDetails.quantity);
                             $('input[name="product_id"]').val(response.productDetails.id);
                             $('input[name="description"]').val(response.productDetails.description);
-                            $("#edit-product-img").attr('src', "{{ asset('storage/product-img/') }}" + '/' + response.productDetails.product_image);
+                            var productImages = response.productDetails.product_images;
+                            $("#edit-product-img").attr('src', "{{ asset('storage/product-img/') }}" + '/' + productImages[0]);
+
+                            for (var i = 1; i < productImages.length; i++) {
+                                var newImage = $("<img>").attr('src', "{{ asset('storage/product-img/') }}" + '/' + productImages[i]);
+                                // Append the new image element to the container
+                                $("#edit-product-img-container").append(newImage);
+                            }
+
                             $("#category").val(response.productDetails.category_id).trigger('change');
                         }
                     },

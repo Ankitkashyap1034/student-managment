@@ -42,7 +42,7 @@ Route::get('/student-logut', [StudentAuthController::class, 'logout'])->name('lo
 // for student panel
 Route::get('/student-index', [StudentController::class, 'index'])->name('home.student')->middleware('auth');
 Route::get('/student/attendance/', [StudentController::class, 'viewAttendance'])->name('attendance.student.view')->middleware('auth');
-Route::match(['get', 'post'],'/student/attedance/month-year/', [StudentController::class, 'viewAttendanceStudentByMonthYear'])->name('attendance.year.month.student')->middleware('auth');
+Route::match(['get', 'post'],'student/attedance/month-year/', [StudentController::class, 'viewAttendanceStudentByMonthYear'])->name('attendance.year.month.student')->middleware('auth');
 
 // staff routes
 

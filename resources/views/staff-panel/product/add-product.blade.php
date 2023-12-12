@@ -25,7 +25,7 @@
 
                                                     <div class="form-group mb-3">
                                                         <label for="studentName">Product Image:</label>
-                                                        <input type="file" name="product_image" class="form-control" id="product-image" placeholder="Upload product image" required />
+                                                        <input type="file" multiple="multiple" name="product_image[]" class="form-control" id="product-image" placeholder="Upload product image" required />
                                                         @error('product_image')
                                                             <div class="text-danger">{{ $message }}</div>
                                                         @enderror

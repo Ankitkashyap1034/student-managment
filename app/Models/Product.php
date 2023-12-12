@@ -12,11 +12,13 @@ class Product extends Model
     protected $table = 'product';
 
     protected $primary_key = 'id';
+    protected $casts = [
+        'product_images' => 'array',
+    ];
 
     protected $fillable =
     [
         'product_name',
-        'product_image',
         'category_id',
         'quantity',
         'description',
