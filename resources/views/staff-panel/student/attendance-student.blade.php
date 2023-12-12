@@ -16,12 +16,40 @@
                         @endif
 
                         <div class="table-responsive">
+                            <form action="{{route('attendance.year.month')}}" class="form" method="post">
+                                @csrf
+                                <div class="row">
+                                    <div class="col-md-3 mb-3">
+                                        <label>Select Year</label>
+                                        <select name="year" class="form-control" id="year">
+                                            @php
+                                                $currentYear = date('Y');
+                                            @endphp
+
+                                            @for ($year = 2000; $year <= $currentYear; $year++)
+                                                <option value="{{ $year }}">{{ $year }}</option>
+                                            @endfor
+                                        </select>
+                                    </div>
+                                    <div class="col-md-3 mb-3">
+                                        <label>Select Month</label>
+                                        <select name="month" class="form-control"  id="selectMonth">
+                                            @for ($month = 1; $month <= 12; $month++)
+                                                <option value="{{ $month }}">{{ date('F', mktime(0, 0, 0, $month, 1)) }}</option>
+                                            @endfor
+                                        </select>
+                                    </div>
+                                    <div class="col-md-3 mb-3">
+                                        <button type="submit" class="btn btn-fill btn-success mt-4">Submit</button>
+                                    </div>
+                                </div>
+                            </form>
                             <table id="attendance" class="table table-bordered table-striped">
                                 <thead>
                                     <th>S.No</th>
                                     <th>Name</th>
-                                    @for ($day = 1; $day <= 31; $day++)
-                                        <th>{{ $day }}-Dec</th>
+                                    @for ($day = 1; $day <= $daysInMonth; $day++)
+                                        <th style="width: 30px;">{{ $day }} - {{$monthName}} - {{ $selctYear }}</th>
                                     @endfor
                                 </thead>
                                 <tbody>
@@ -29,24 +57,27 @@
                                         <tr>
                                             <td>{{$i++}}</td>
                                             <td>{{$studentData->name}}</td>
-                                            @for ($day = 1; $day <= 31; $day++)
+                                            @for ($day = 1; $day <= $daysInMonth; $day++)
                                                 <td>
                                                     <form method="post" action="{{route('view.student.attendance')}}">
                                                         @csrf
                                                         <input name="day" value="{{$day}}" type="hidden"/>
                                                         <input name="student_id" value="{{$studentData->id}}" type="hidden"/>
+                                                        <input name="month" value="{{$monthName}}" type="hidden"/>
+                                                        <input name="year" value="{{$selctYear}}" type="hidden"/>
                                                         @php
-                                                            $attendance = DB::table('attendance_december')->where('student_id', $studentData->id)->where('day', $day)->first();
+                                                            $attendance = DB::table('attendance')->where('student_id', $studentData->id)
+                                                                            ->where('day', $day)
+                                                                            ->where('month',$monthName)
+                                                                            ->where('year',$selctYear)->first();
                                                         @endphp
                                                         <select name="status" id="status">
                                                             <option  data-id="" value=""></option>
                                                             <option @if($attendance && $attendance->status == 'present') selected @endif value="present">P</option>
                                                             <option @if($attendance && $attendance->status == 'absent') selected @endif value="absent">A</option>
                                                             <option @if($attendance && $attendance->status == 'excused') selected @endif value="excused">E</option>
-                                                        </select>
-                                                        <button type="submit" class="bx bx-check mt-1 btn-success   ">
-                                                            {{-- <i class='bx bx-check'></i> --}}
-                                                        </button>
+                                                        </select><br>
+                                                        <button type="submit" class="bx bx-check mt-1 btn-success"></button>
                                                     </form>
                                                 </td>
                                             @endfor
@@ -75,6 +106,60 @@
     </script>
     {{-- script for data table --}}
 
+    @if(Route::currentRouteName() == 'view.student.attendance')
+        <script>
+            $(document).ready(function() {
+                var currentMonth = new Date().getMonth() + 1;
+
+                // Set the selected option to the current month
+                $('#selectMonth').val(currentMonth);
+            });
+        </script>
+
+        <script>
+            $(document).ready(function() {
+                var currentYear = new Date().getFullYear();
+
+                // Set the selected option to the current month
+                $('#year').val(currentYear);
+            });
+        </script>
+        @else
+            <script>
+                var currentMonth = @json($monthName);
+                var currentYear = @json($selctYear);
+
+                // create a fucntion to find the month number with help of month name
+                function getMonthNumber(monthName) {
+                    var months = {
+                        'January': 1,
+                        'February': 2,
+                        'March': 3,
+                        'April': 4,
+                        'May': 5,
+                        'June': 6,
+                        'July': 7,
+                        'August': 8,
+                        'September': 9,
+                        'October': 10,
+                        'November': 11,
+                        'December': 12
+                    };
+
+                    return months[monthName];
+                }
+                // use the fucntion to find the month number
+                var currentMonthNumber = getMonthNumber(currentMonth);
+
+                $(document).ready(function() {
+                    $('#selectMonth').val(currentMonthNumber);
+                });
+
+                $(document).ready(function() {
+                    $('#year').val(currentYear);
+                });
+            </script>
+    @endif
     @if(session('success'))
         <script>
             Swal.fire({

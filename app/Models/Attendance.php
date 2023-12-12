@@ -9,16 +9,18 @@ class Attendance extends Model
 {
     use HasFactory;
 
-    protected $table = 'attendance_december';
+    protected $table = 'attendance';
 
     protected $primary_key = 'id';
 
     protected $fillable =
     [
         'student_id',
-        'day',
         'status',
         'staff_id',
+        'day',
+        'month',
+        'year',
     ];
 
 }

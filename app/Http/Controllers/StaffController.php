@@ -11,6 +11,8 @@ use Attribute;
 use Auth;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Redis;
+use Carbon\Carbon;
+
 
 class StaffController extends Controller
 {
@@ -203,6 +205,7 @@ class StaffController extends Controller
             'staff_id' => 'required',
             'user_id' => 'required'
         ]);
+
         $userModelInstance = User::find($request->user_id);
         $userModelInstance->update([
             'name' => $request->name,
@@ -230,24 +233,60 @@ class StaffController extends Controller
     public function viewStudentAttendanceByStudent(Request $request)
     {
         $studentData = Student::all();
+        $currentMonth = now();
+        $monthName = $currentMonth->format('F');
+        $daysInMonth = $currentMonth->daysInMonth;
+        $currentYear = $currentMonth->year;
 
-        // $student =
         return view('staff-panel.student.attendance-student',[
             'studentData' => $studentData,
-            'i' => 1
+            'i' => 1,
+            'daysInMonth' => $daysInMonth,
+            'monthName' => $monthName,
+            'selctYear' => $currentYear
+        ]);
+    }
+
+    public function viewAttendanceByMonthYear(Request $request)
+    {
+        $studentData = Student::all();
+        $monthName = $request->month;
+
+        $monthNumber = $request->month;
+        $date = Carbon::createFromDate(date('Y'), $monthNumber, 1);
+        $monthName = $date->format('F');
+        $daysInMonth = $date->daysInMonth;
+
+        return view('staff-panel.student.attendance-student',[
+            'studentData' => $studentData,
+            'i' => 1,
+            'daysInMonth' => $daysInMonth,
+            'monthName' => $monthName,
+            'selctYear' => $request->year
         ]);
     }
 
     public function storeStudentAttendanceByStudent(Request $request)
     {
-        $attendanceExist = Attendance::where('day',$request->day)->where('student_id',$request->student_id)->first();
+        $attendanceExist = Attendance::where('student_id',$request->student_id)
+                            ->where('day',$request->day)
+                            ->where('month',$request->month)
+                            ->where('year',$request->year)->first();
+
+        $monthNumber = Carbon::createFromFormat('F', $request->month)->month;
         if($attendanceExist)
         {
             $attendanceExist->update([
                 'status' => $request->status
             ]);
 
-            return redirect()->back()->with('update_success','attendance create');
+            return redirect()->route('attendance.year.month',
+                [
+                    'month' => $monthNumber,
+                    'year' => $request->year,
+                ]
+            )->withInput();
+
         }else{
 
             $staff = Staff::where('user_id',Auth::user()->id)->first();
@@ -256,8 +295,17 @@ class StaffController extends Controller
                 'status' => $request->status,
                 'staff_id' => $staff->id,
                 'day' => $request->day,
+                'month' => $request->month,
+                'year' => $request->year,
             ]);
-            return redirect()->back()->with('success','attendance update');
+
+            return redirect()->route('attendance.year.month',
+                [
+                    'month' => $monthNumber,
+                    'year' => $request->year,
+                ]
+            )->withInput();
         }
     }
+
 }
