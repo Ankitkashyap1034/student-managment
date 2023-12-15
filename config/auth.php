@@ -110,6 +110,12 @@ return [
     |
     */
 
+    'api' => [
+        'driver' => 'sanctum',
+        'provider' => 'users',
+        'hash' => false,
+    ],
+
     'password_timeout' => 10800,
 
 ];

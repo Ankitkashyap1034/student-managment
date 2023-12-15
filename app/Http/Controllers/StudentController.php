@@ -45,7 +45,8 @@ class StudentController extends Controller
             'year' => $currentYear,
             'studentDetails' => $student,
             'i' => 1,
-            'attendance' => $attendance
+            'attendance' => $attendance,
+            'daysInMonth' => ''
         ]);
     }
 

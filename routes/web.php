@@ -63,7 +63,7 @@ Route::middleware('auth')->prefix('staff')->group(function () {
     Route::match(['get', 'post'],'student-attedance/month-year/', [StaffController::class, 'viewAttendanceByMonthYear'])->name('attendance.year.month');
 });
 Route::get('/login', [StaffController::class, 'viewStaffLogin'])->name('login.staff');
-Route::post('/login', [StaffController::class, 'loginStaff'])->name('login.staff');
+Route::post('/login', [StaffController::class, 'loginStaff'])->name('login.staff.update');
 Route::get('/logout', [StaffController::class, 'logoutStaff'])->name('logout.staff');
 
 Route::middleware('auth')->prefix('product')->group(function () {

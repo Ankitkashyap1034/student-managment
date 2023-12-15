@@ -149,6 +149,8 @@ class ProductController extends Controller
 
     public function storeProductDetails(Request $request)
     {
+
+
         $request->validate([
             'product_id' => 'required',
             'product_name' => 'required',
@@ -158,6 +160,18 @@ class ProductController extends Controller
         ]);
 
         $productModelInstanse = Product::find($request->product_id);
+
+        $valueToSearch = '202312121252avtar3.jpeg';
+
+        $key = array_search($valueToSearch,$productModelInstanse->product_images);
+        if ($key !== false) {
+            // Update the value at the found key
+            dd($productModelInstanse->product_images[$key]);
+
+        } else {
+            // Value not found in the array
+            echo "Value not found in the array.";
+        }
 
         if ($request->file('product_image')) {
             $file = $request->file('product_image');
@@ -180,12 +194,6 @@ class ProductController extends Controller
     {
         $data = Product::all();
         $categeries = Category::all();
-
-        // dd($data[7]->product_images);
-
-        // $secondImageName = json_decode($data[7]->product_image,true);
-        // $decodedArray = json_decode($data[7]->product_images, true);
-        // dd($decodedArray);
 
         return view('staff-panel.product.product-listing', [
             'data' => $data,

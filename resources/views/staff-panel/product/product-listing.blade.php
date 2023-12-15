@@ -64,7 +64,7 @@
                         </div>
 
                         <div class="text-center p-2" id="edit-product-img-container">
-                            <img id="edit-product-img" width="20%" src="" class="img-fluid" alt="Student Profile Image">
+                            <img id="edit-product-img" width="20%" src="" class="img-fluid" alt="Product Image">
                         </div>
 
                         <form method="POST" class="form" action="{{route('edit.product.store')}}" enctype="multipart/form-data">
@@ -152,7 +152,7 @@
                             $("#edit-product-img").attr('src', "{{ asset('storage/product-img/') }}" + '/' + productImages[0]);
 
                             for (var i = 1; i < productImages.length; i++) {
-                                var newImage = $("<img>").attr('src', "{{ asset('storage/product-img/') }}" + '/' + productImages[i]);
+                                var newImage = $("<img>").attr('src', "{{ asset('storage/product-img/') }}" + '/' + productImages[i]).addClass('img-fluid').attr('width', '20%');
                                 // Append the new image element to the container
                                 $("#edit-product-img-container").append(newImage);
                             }
